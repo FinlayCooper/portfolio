@@ -23,7 +23,7 @@ const experiences: ExperienceItem[] = [
     period: "November 2025 - Present",
     description: [
       "Lead cross-functional teams to deliver high-impact products on time and within scope, managing the entire product lifecycle from conception to launch",
-      "Collaborate with engineering, design, and stakeholders to define product requirements, prioritize features, and ensure alignment with business objectives",
+      "Conducted discovery calls with stakeholders and technical teams to gather requirements, breaking down complex technical and architectural requirements into actionable development tasks",
       "Implement agile methodologies and sprint planning processes, improving team velocity and delivery predictability by 25%",
       "Facilitate daily standups, sprint reviews, and retrospectives to maintain clear communication and continuous improvement across teams"
     ],
