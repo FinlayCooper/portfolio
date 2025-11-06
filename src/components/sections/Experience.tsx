@@ -17,6 +17,22 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
+    title: "Product Delivery Manager",
+    company: "Temppo Labs",
+    location: "Toronto, ON",
+    period: "November 2025 - Present",
+    description: [
+      "Lead cross-functional teams to deliver high-impact products on time and within scope, managing the entire product lifecycle from conception to launch",
+      "Collaborate with engineering, design, and stakeholders to define product requirements, prioritize features, and ensure alignment with business objectives",
+      "Implement agile methodologies and sprint planning processes, improving team velocity and delivery predictability by 25%",
+      "Facilitate daily standups, sprint reviews, and retrospectives to maintain clear communication and continuous improvement across teams"
+    ],
+    technologies: ["Agile", "Scrum", "Product Management", "Jira", "Confluence", "Stakeholder Management", "Roadmap Planning"],
+    companyLogo: "",
+    companyUrl: "",
+    screenshot: ""
+  },
+  {
     title: "Software Engineer",
     company: "Flowmatic",
     location: "Toronto, ON",
