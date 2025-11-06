@@ -25,7 +25,7 @@ const experiences: ExperienceItem[] = [
       "Led designer, developer, and client relations teams to deliver features quickly, managing the entire product lifecycle from conception to launch",
       "Conducted discovery calls with stakeholders and technical teams to gather requirements, breaking down complex technical and architectural requirements into actionable development tasks",
       "Implement agile methodologies and sprint planning processes, improving team velocity and delivery predictability by 25%",
-      "Facilitate daily standups, sprint reviews, and retrospectives to maintain clear communication and continuous improvement across teams"
+      "Built an internal ticket management and tracking tool to streamline workflow processes and improve team productivity"
     ],
     technologies: ["Agile", "Scrum", "Product Management", "Jira", "Confluence", "Stakeholder Management", "Roadmap Planning"],
     companyLogo: "",
