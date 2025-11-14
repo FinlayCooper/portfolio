@@ -18,7 +18,7 @@ interface ExperienceItem {
 const experiences: ExperienceItem[] = [
     {
         title: "Software Developer Intern",
-        company: "Broadgrain Commodities",
+        company: "BroadGrain Commodities",
         location: "Toronto, ON",
         period: "Summer 2025",
         description: [
@@ -52,7 +52,7 @@ const experiences: ExperienceItem[] = [
     },
     {
         title: "Detailing and Maintenance Specialist",
-        company: "Three Lakes Concierge (Formerly Dockside Detaialing)",
+        company: "Three Lakes Concierge (Formerly Dockside Detailing)",
         location: "Muskoka, ON",
         period: "Summer 2023",
         description: [
