@@ -68,7 +68,7 @@ const About = () => {
         className="relative w-42 h-42 rounded-full overflow-hidden ring-4 ring-finlayGreen"
         >
         <Image
-        src="/images/profile.jpg"
+        src="/images/hero.jpg"
         alt="Profile picture"
         fill
         className="object-cover"
