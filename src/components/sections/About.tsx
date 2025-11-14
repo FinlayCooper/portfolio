@@ -86,7 +86,7 @@ const About = () => {
             </div>
             <div className="space-y-4 text-gray-300">
               <p className="text-gray-300 mb-6">
-                I'm a software engineering student at Western University on the Dean's Honour List. Most recently,
+                I&apos;m a software engineering student at Western University on the Dean&apos;s Honour List. Most recently,
                 I worked as a Software Developer Intern at Broadgrain Commodities, where I led an end-to-end rebuild
                 of their plant operations system.
               </p>
@@ -96,7 +96,7 @@ const About = () => {
                 tools fit naturally into existing workflows rather than forcing people to adapt to technology.
               </p>
               <p>
-                I've built my technical foundation through coursework in Data Structures & Algorithms, Operating Systems,
+                I&apos;ve built my technical foundation through coursework in Data Structures & Algorithms, Operating Systems,
                 Databases, and Web Technologies. From cross-platform tools like CloudCopier to full-stack web applications
                 and Unity games, I take projects through the full lifecycle—concept, development, and deployment—with a
                 focus on shipping software people actually want to use.
