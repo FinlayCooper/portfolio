@@ -93,7 +93,7 @@ const About = () => {
         <p>
         I&apos;ve built my technical foundation through coursework in Data Structures & Algorithms, Operating Systems,
         Databases, and Web Technologies. From cross-platform tools like CloudCopier to full-stack web applications
-        and Unity games, I take projects through the full lifecycle—concept, development, and deployment—with a
+        and Unity games, I take projects through the full lifecycle; concept, development, and deployment; with a
         focus on shipping software people actually want to use.
             </p>
         </div>
