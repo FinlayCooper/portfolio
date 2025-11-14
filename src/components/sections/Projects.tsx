@@ -106,7 +106,11 @@ const Projects = () => {
                   <h3 className="text-lg font-bold text-finlayGreen">{project.title}</h3>
                   <p className="text-sm font-medium text-gray-400">{project.period}</p>
                 </div>
-                <p className="text-sm text-gray-300 mb-3 line-clamp-3">{project.description}</p>
+                <ul className="text-sm text-gray-300 mb-3 space-y-1 list-disc list-inside">
+                  {project.description.map((desc, i) => (
+                    <li key={i}>{desc}</li>
+                  ))}
+                </ul>
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {project.technologies.map((tech, i) => (
                     <span
