@@ -26,7 +26,7 @@ const experiences: ExperienceItem[] = [
                 "Built for plant operations: inspection forms, certificates, and reporting with tablet-first data entry, PDF output, and SharePoint delivery",
                     "TypeScript React/React Native (Expo) frontends for tablets and web; streamlined flows and improved UX",
             "Node.js/Express, MySQL, LLMs (MCP): backend (auth, PDF generation, SharePoint), schema design, and automated legacy migration",
-            "Deployed on Broadgrain's data centre (pm2/IIS deployment on remote desktop); wrote maintenance scripts/runbooks and trained the new owner for handoff",
+            "Deployed on BroadGrain's data centre (pm2/IIS deployment on remote desktop); wrote maintenance scripts/runbooks and trained the new owner for handoff",
                 "Impact: 15% faster (refactored); 75% faster (digitized)"
         ],
         technologies: ["TypeScript", "React", "React Native", "Expo", "Node.js", "Express", "MySQL", "SharePoint", "IIS", "pm2", "Docker"],

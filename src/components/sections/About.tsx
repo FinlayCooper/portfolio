@@ -82,7 +82,7 @@ const About = () => {
         <div className="space-y-4 text-gray-300">
         <p className="text-gray-300 mb-6">
         I&apos;m a software engineering student at Western University on the Dean&apos;s Honour List. Most recently,
-        I worked as a Software Developer Intern at Broadgrain Commodities, where I led an end-to-end rebuild
+        I worked as a Software Developer Intern at BroadGrain Commodities, where I led an end-to-end rebuild
         of their plant operations system.
             </p>
         <p>
