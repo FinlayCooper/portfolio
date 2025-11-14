@@ -18,63 +18,67 @@ interface ProjectItem {
 
 const projects: ProjectItem[] = [
   {
-    title: "Capstone: London Transit Delays - 1st Place Winner",
-    period: "Fall 2024 - Spring 2025",
+    title: "CloudCopier - Cross-Device Clipboard Sync",
+    period: "2024 - 2025",
     description: [
-      "Implemented a real-time data pipeline using Node.js, Express, and MongoDB, processing weather and traffic data dynamically",
-      "Configured a Grafana dashboard to visualize the data, and a cron job to run the pipeline as a scheduled task",
-      "Utilized Python, Pandas, Scikit-learn, and TensorFlow to build a predictive analytics pipeline, leveraging historical and real-time datasets for model training"
+      "Cross-platform clipboard sync (Windows–iOS): C# Windows client, Node.js server (API keys, Docker), and Swift/SwiftUI iOS app",
+      "Supports all common file formats (text, images, docs, media, etc.), offline queuing, and secure self-hosting",
+      "Format normalization, deduplication, and rate-limited polling with retries for reliable cross-platform sync",
+      "Set up CI/CD for auto-builds and redeploys to a cloud platform on push"
     ],
-    technologies: ["Node.js", "Express", "MongoDB", "Python", "Grafana ", "Docker", "Cron", "GCP", "Open Source APIs"],
+    technologies: ["C#", "Node.js", "Swift", "SwiftUI", "Docker", "CI/CD", "REST API"],
     links: {
-      demo: "https://www.youtube.com/watch?app=desktop&v=faBJWkhCoZU"
+      github: "https://github.com/FinlayCooper/CloudCopier"
     },
-    image: "/images/london-transit-delays.jpg"
+    image: "/images/cloudcopier.jpg"
   },
   {
-    title: "Stockr",
-    period: "Fall 2024 - Present",
+    title: "Quizzly - Online Multiplayer Trivia Game",
+    period: "Jan-April 2025",
     description: [
-      "Engineered an AI agent using the OpenAI API that analyzes personal portfolios and delivers personalized financial advice, leveraging insights from corporate financial reporting, finance and accounting coursework",
-      "Developed a real-time finance dashboard integrating market data, portfolio tracking, and interactive visualizations utilizing open source libraries such as Chart.js and APIs such as Alpha Vantage, IEX Cloud, Yahoo Finance, and OpenAI"
+      "Real-time multiplayer trivia game using WebSockets for low-latency synchronous gameplay",
+      "C++ backend with concurrent thread management for handling multiple game sessions and player connections simultaneously",
+      "Implemented custom networking protocol for reliable message passing and game state synchronization across clients",
+      "Collaborative project with 5 contributors managing concurrent development workflows and version control"
     ],
-    technologies: ["OpenAI API", "Docker","Chart.js", "Alpha Vantage API", "IEX Cloud", "Yahoo Finance API", "React", "Typescript", "Next.js", "MongoDB", "Node.js", "Express", "Vercel"],
+    technologies: ["C++", "WebSockets", "Multithreading", "Concurrency", "Network Programming", "JavaScript"],
     links: {
-      info: "https://www.stockr.info/"
+      github: "https://github.com/FinlayCooper/Quizzly"
     },
-    image: "/images/stockr.jpg"
+    image: "/images/quizzly.jpg"
   },
   {
-    title: "Cheer Web App",
-    period: "Winter 2024",
+    title: "Travel Planner - Full-Stack Web App",
+    period: "Fall 2024",
     description: [
-      "Deployed on GCP a comprehensive web app using the MERN stack, implementing a role-based access control system, real-time communication with Socket.io, staff scheduling, payroll system and Eleven Labs for text-to-speech functionality ensuring accessibility",
-      "Collaborated with Family Connections Center over 8 months, utilizing scrum and Jim throughout the SDLC, adopting agile principles"
+      "JWT-secured React + Node.js (Firestore) for collaborative planning and scalable storage",
+      "Deployed on AWS EC2; tuned for responsiveness and reliability",
+      "Implemented modular components and server-side validation, with robust error handling and pagination for core views"
     ],
-    technologies: ["MongoDB", "Express", "React", "Typescript", "Next.js", "GCP", "Socket.io", "Eleven Labs", "Docker"],
+    technologies: ["React", "Node.js", "Firestore", "JWT", "AWS EC2", "Express"],
     links: {
-      demo: "https://www.youtube.com/watch?v=vwu5KqiraI4"
+      github: "https://github.com/FinlayCooper/TravelPlanner"
     },
-    image: "/images/cheer-web-app.jpg"
+    image: "/images/travel-planner.jpg"
   },
   {
-    title: "Superhero Community Platform Web App",
+    title: "Against the Machines - 3D Unity Game",
     period: "Fall 2023",
     description: [
-      "Developed a HeroHub, a full-stack web application using the PERN stack (PostgreSQL, Express, React, Node.js), enabling users to explore, manage, and review a comprehensive superhero database",
-      "Deployed on AWS EC2 and managed server configs, security groups, and storage optimization for efficient cloud-based operations"
+      "Built a three-level Unity/C# action game; implemented player controls, enemy AI, and physics-driven interactions",
+      "Delivered in three Agile sprints with weekly stand-ups, demos, and retrospectives"
     ],
-    technologies: ["PostgreSQL", "Express", "React", "Node.js", "AWS EC2"],
+    technologies: ["Unity", "C#", "Game Development", "Agile"],
     links: {
-      github: "https://github.com/jamesmoraless/Hero-Hub-PERN-Stack"
+      github: "https://github.com/FinlayCooper/Against-the-Machines"
     },
-    image: "/images/superhero-community-platform.jpg"
+    image: "/images/against-the-machines.jpg"
   }
 ];
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-20 bg-indigo-50">
+    <section id="projects" className="py-20 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -83,8 +87,8 @@ const Projects = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured Projects</h2>
-          <p className="text-lg text-gray-700">Some of my recent work</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-finlayGreen mb-4">Featured Projects</h2>
+          <p className="text-lg text-gray-300">Some of my recent work</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -95,19 +99,19 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="bg-indigo-200 rounded-xl shadow-sm overflow-hidden"
+              className="bg-gray-900 rounded-xl shadow-sm overflow-hidden"
             >
               <div className="p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg font-bold text-gray-900">{project.title}</h3>
-                  <p className="text-sm font-medium text-gray-600">{project.period}</p>
+                  <h3 className="text-lg font-bold text-finlayGreen">{project.title}</h3>
+                  <p className="text-sm font-medium text-gray-400">{project.period}</p>
                 </div>
-                <p className="text-sm text-gray-700 mb-3 line-clamp-3">{project.description}</p>
+                <p className="text-sm text-gray-300 mb-3 line-clamp-3">{project.description}</p>
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {project.technologies.map((tech, i) => (
                     <span
                       key={i}
-                      className="px-2 py-0.5 bg-white text-gray-700 text-xs rounded-full border border-indigo-100 hover:bg-indigo-100 hover:border-indigo-200 hover:text-indigo-700 transition-all duration-200"
+                      className="px-2 py-0.5 bg-gray-800 text-finlayGreen text-xs rounded-full border border-gray-700 hover:bg-gray-700 hover:border-gray-600 transition-all duration-200"
                     >
                       {tech}
                     </span>
@@ -119,7 +123,7 @@ const Projects = () => {
                       href={project.links.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-700 hover:text-indigo-600 transition-colors flex items-center space-x-1"
+                      className="text-finlayGreen hover:text-finlayGreen/80 transition-colors flex items-center space-x-1"
                     >
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z" />
@@ -132,7 +136,7 @@ const Projects = () => {
                       href={project.links.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-700 hover:text-indigo-600 transition-colors flex items-center space-x-1"
+                      className="text-finlayGreen hover:text-finlayGreen/80 transition-colors flex items-center space-x-1"
                     >
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -149,7 +153,7 @@ const Projects = () => {
                       href={project.links.info}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-700 hover:text-indigo-600 transition-colors flex items-center space-x-1"
+                      className="text-finlayGreen hover:text-finlayGreen/80 transition-colors flex items-center space-x-1"
                     >
                       <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
@@ -172,7 +176,7 @@ const Projects = () => {
         >
           <a
             href="/archive"
-            className="inline-flex items-center text-gray-900 hover:text-indigo-600 transition-colors duration-200 group"
+            className="inline-flex items-center text-finlayGreen hover:text-finlayGreen/80 transition-colors duration-200 group"
           >
             <span className="text-lg font-medium">View Full Project Archive</span>
             <svg

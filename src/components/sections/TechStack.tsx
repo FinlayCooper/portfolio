@@ -1,76 +1,61 @@
 'use client';
 import { useRef, useEffect, useState } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { type SimpleIcon } from 'simple-icons';
+import { IconType } from 'react-icons';
 
-// Import specific icons we need
+// Import icons from react-icons
 import {
-  siHtml5,
-  siCss3,
-  siJavascript,
-  siTypescript,
-  siPython,
-  siReact,
-  siNodedotjs,
-  siExpress,
-  siFlask,
-  siNextdotjs,
-  siPostgresql,
-  siMongodb,
-  siMysql,
-  siAmazonwebservices,
-  siGooglecloud,
-  siDocker,
-  siKubernetes,
-  siTerraform,
-  siGit,
-  siGithub,
-  siJenkins,
-  siApacheairflow,
-  siSplunk,
-  siPostman,
-  siFigma,
-  siTailwindcss,
-} from 'simple-icons';
+  SiJavascript,
+  SiTypescript,
+  SiPython,
+  SiCplusplus,
+  SiReact,
+  SiNodedotjs,
+  SiExpress,
+  SiSwift,
+  SiUnity,
+  SiPostgresql,
+  SiMongodb,
+  SiMysql,
+  SiFirebase,
+  SiDocker,
+  SiGit,
+  SiNginx,
+  SiDotnet,
+} from 'react-icons/si';
+import { FaJava } from 'react-icons/fa6';
 
 interface TechItem {
   name: string;
-  icon: SimpleIcon;
+  icon: IconType;
+  color: string;
   category: 'language' | 'database' | 'cloud' | 'tool';
 }
 
 const techStack: TechItem[] = [
   // Languages & Frameworks
-  { name: 'HTML5', icon: siHtml5, category: 'language' },
-  { name: 'CSS3', icon: siCss3, category: 'language' },
-  { name: 'JavaScript', icon: siJavascript, category: 'language' },
-  { name: 'TypeScript', icon: siTypescript, category: 'language' },
-  { name: 'Python', icon: siPython, category: 'language' },
-  { name: 'React', icon: siReact, category: 'language' },
-  { name: 'Node.js', icon: siNodedotjs, category: 'language' },
-  { name: 'Express', icon: siExpress, category: 'language' },
-  { name: 'Flask', icon: siFlask, category: 'language' },
-  { name: 'Next.js', icon: siNextdotjs, category: 'language' },
+  { name: 'Java', icon: FaJava, color: '#007396', category: 'language' },
+  { name: 'C# / .NET', icon: SiDotnet, color: '#512BD4', category: 'language' },
+  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', category: 'language' },
+  { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', category: 'language' },
+  { name: 'Python', icon: SiPython, color: '#3776AB', category: 'language' },
+  { name: 'C++', icon: SiCplusplus, color: '#00599C', category: 'language' },
+  { name: 'React', icon: SiReact, color: '#61DAFB', category: 'language' },
+  { name: 'Node.js', icon: SiNodedotjs, color: '#339933', category: 'language' },
+  { name: 'Express.js', icon: SiExpress, color: '#000000', category: 'language' },
+  { name: 'Swift', icon: SiSwift, color: '#FA7343', category: 'language' },
+  { name: 'Unity', icon: SiUnity, color: '#000000', category: 'language' },
 
   // Databases & Cloud
-  { name: 'PostgreSQL', icon: siPostgresql, category: 'database' },
-  { name: 'MongoDB', icon: siMongodb, category: 'database' },
-  { name: 'MySQL', icon: siMysql, category: 'database' },
-  { name: 'AWS', icon: siAmazonwebservices, category: 'cloud' },
-  { name: 'GCP', icon: siGooglecloud, category: 'cloud' },
-  { name: 'Docker', icon: siDocker, category: 'cloud' },
-  { name: 'Kubernetes', icon: siKubernetes, category: 'cloud' },
-  { name: 'Terraform', icon: siTerraform, category: 'cloud' },
+  { name: 'MySQL', icon: SiMysql, color: '#4479A1', category: 'database' },
+  { name: 'Firestore', icon: SiFirebase, color: '#FFCA28', category: 'database' },
+  { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1', category: 'database' },
+  { name: 'MongoDB', icon: SiMongodb, color: '#47A248', category: 'database' },
+  { name: 'Docker', icon: SiDocker, color: '#2496ED', category: 'cloud' },
 
   // Tools & DevOps
-  { name: 'Git', icon: siGit, category: 'tool' },
-  { name: 'GitHub', icon: siGithub, category: 'tool' },
-  { name: 'Jenkins', icon: siJenkins, category: 'tool' },
-  { name: 'Apache Airflow', icon: siApacheairflow, category: 'tool' },
-  { name: 'Splunk', icon: siSplunk, category: 'tool' },
-  { name: 'Postman', icon: siPostman, category: 'tool' },
-  { name: 'Figma', icon: siFigma, category: 'tool' },
-  { name: 'Tailwind CSS', icon: siTailwindcss, category: 'tool' },
+  { name: 'Git', icon: SiGit, color: '#F05032', category: 'tool' },
+  { name: 'Nginx', icon: SiNginx, color: '#009639', category: 'tool' },
 ];
 
 const TechStack = () => {
@@ -128,18 +113,8 @@ const TechStack = () => {
     }
   };
 
-  const renderIcon = (icon: SimpleIcon) => {
-    return (
-      <svg
-        role="img"
-        viewBox="0 0 24 24"
-        className="w-8 h-8"
-        fill="currentColor"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d={icon.path} />
-      </svg>
-    );
+  const renderIcon = (Icon: IconType, color: string) => {
+    return <Icon className="w-8 h-8" style={{ color }} />;
   };
 
   // Create three sets of tech stack for smooth infinite scrolling
@@ -147,9 +122,9 @@ const TechStack = () => {
 
   return (
     <>
-      <section id="tech-stack" className="py-16 bg-indigo-50">
+      <section id="tech-stack" className="py-16 bg-black">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">
+          <h2 className="text-3xl font-bold text-finlayGreen text-center mb-8">
             Tech Stack
           </h2>
           <div 
@@ -179,13 +154,10 @@ const TechStack = () => {
                   key={`${tech.name}-${index}`}
                   className="flex flex-col items-center gap-2 min-w-[100px]"
                 >
-                  <div 
-                    className="w-12 h-12 relative flex items-center justify-center"
-                    style={{ color: `#${tech.icon.hex}` }}
-                  >
-                    {renderIcon(tech.icon)}
+                  <div className="w-12 h-12 relative flex items-center justify-center">
+                    {renderIcon(tech.icon, tech.color)}
                   </div>
-                  <span className="text-sm text-gray-800 text-center whitespace-nowrap">
+                  <span className="text-sm text-gray-300 text-center whitespace-nowrap">
                     {tech.name}
                   </span>
                 </div>
