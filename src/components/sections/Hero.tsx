@@ -55,7 +55,7 @@ const Hero = () => {
           className="mt-8 md:mt-0 md:w-1/2 flex justify-center"
         >
           <img
-            src="/images/hero.jpg"
+            src="/images/profile.jpg"
             alt="Finlay Cooper"
             className="w-72 h-92 md:w-106 md:h-136 object-cover object-center rounded-xl shadow-lg"
           />
