@@ -19,7 +19,7 @@ const educationData: EducationItem[] = [
     degree: "Bachelor of Engineering, Software Engineering",
     period: "Sept 2022 - June 2026",
     location: "London, ON",
-    gpa: "3.9 GPA — Dean's Honour List",
+    gpa: "Dean's Honour List",
     courses: [
       "Data Structures & Algorithms",
       "Operating Systems",
