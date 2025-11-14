@@ -106,7 +106,7 @@ const Contact = () => {
                   </svg>
                 </a>
                 <a
-                  href="https://www.linkedin.com/in/finlay-cooper-b61a88252/"
+                  href="https://www.linkedin.com/in/finlaycooper/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-finlayGreen hover:text-finlayGreen/80 transition-colors"
