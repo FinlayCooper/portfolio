@@ -42,9 +42,9 @@ const techStack: TechItem[] = [
   { name: 'C++', icon: SiCplusplus, color: '#00599C', category: 'language' },
   { name: 'React', icon: SiReact, color: '#61DAFB', category: 'language' },
   { name: 'Node.js', icon: SiNodedotjs, color: '#339933', category: 'language' },
-  { name: 'Express.js', icon: SiExpress, color: '#000000', category: 'language' },
+  { name: 'Express.js', icon: SiExpress, color: '#F7DF1E', category: 'language' },
   { name: 'Swift', icon: SiSwift, color: '#FA7343', category: 'language' },
-  { name: 'Unity', icon: SiUnity, color: '#000000', category: 'language' },
+  { name: 'Unity', icon: SiUnity, color: '#FFFFFF', category: 'language' },
 
   // Databases & Cloud
   { name: 'MySQL', icon: SiMysql, color: '#4479A1', category: 'database' },
