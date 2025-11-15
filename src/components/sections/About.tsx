@@ -31,7 +31,7 @@ const About = () => {
         {
             src: '/images/purple.jpg',
             alt: 'What purple?',
-            caption: 'Whos\'s purple?'
+            caption: 'Who\'s purple?'
         },
         {
             src: '/images/canoe.jpg',
