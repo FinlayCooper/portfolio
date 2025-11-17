@@ -13,26 +13,28 @@ const About = () => {
             alt: 'Lug photo',
             caption: 'Doing what I love most'
         },
-        {
-            src: '/images/graduation.jpg',
-            alt: 'Sister\'s graduation',
-            caption: 'Attending my sister\'s graduation'
-        },
-        {
-            src: '/images/theatre.jpg',
-            alt: 'Throwback to theatre days',
-            caption: 'Throwback to my theatre days — on stage at Roy Thompson Hall'
-        },
+
         {
             src: '/images/design.jpg',
             alt: '1st year design competition',
             caption: 'Winning best use of technology among the entire 2026 class of engineers'
         },
         {
+            src: '/images/theatre.jpg',
+            alt: 'Throwback to theatre days',
+            caption: 'Throwback: On stage at Roy Thompson Hall'
+        },
+        {
             src: '/images/purple.jpg',
             alt: 'What purple?',
             caption: 'Who\'s purple?'
         },
+        {
+            src: '/images/graduation.jpg',
+            alt: 'Sister\'s graduation',
+            caption: 'Attending my sister\'s graduation'
+        },
+
         {
             src: '/images/canoe.jpg',
             alt: 'Canoeing',
