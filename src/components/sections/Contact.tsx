@@ -51,7 +51,7 @@ const Contact = () => {
         >
           <h2 className="text-3xl md:text-4xl font-bold text-finlayGreen mb-4">Get in Touch</h2>
           <p className="text-gray-300 mb-8">
-            Let&apos;s talk!
+            Open to new grad roles and freelance work. Feel free to reach out.
           </p>
         </motion.div>
 

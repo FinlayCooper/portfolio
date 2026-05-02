@@ -17,7 +17,7 @@ const Hero = () => {
             Finlay Cooper
           </h1>
           <h2 className="text-lg md:text-xl text-finlayGreen mb-4 font-medium">
-            Software Engineering Student
+            Software Engineer
           </h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -25,7 +25,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-base md:text-lg text-gray-300 max-w-xl mb-6 leading-relaxed"
           >
-            Building practical software solutions with a focus on user experience and reliability. Passionate about full-stack development, cloud technologies, and creating tools that make a difference.
+            Software Engineering graduate from Western University with a focus on full-stack development, systems programming, and shipping software that sees real use. From a deployed capstone managing 100+ TAs to freelance client work to a completed roguelike.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}

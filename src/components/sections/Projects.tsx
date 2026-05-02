@@ -18,6 +18,48 @@ interface ProjectItem {
 
 const projects: ProjectItem[] = [
   {
+    title: "GTA Management System - Capstone",
+    period: "2025 - 2026",
+    description: [
+      "Full-stack platform replacing spreadsheet-based GTA hiring at Western Engineering — deployed department-wide across 100+ TAs, professors, and committee members",
+      "Configurable matching algorithm combining skill match, preferences, course history, and review data with adjustable weights — executing assignments across 4 priority waves",
+      "78+ REST API endpoints with role-based access control (student/professor/committee), Zod validation, and ownership enforcement — fully tested via automated bash suite",
+      "Dry-run assignment system enabling preview, weight tuning, and manual overrides before commit"
+    ],
+    technologies: ["TypeScript", "React", "Node.js", "Express", "PostgreSQL", "Prisma", "Zod", "REST API"],
+    links: {
+      info: "https://control-alt-elites.netlify.app"
+    },
+    image: "/images/gta-management.jpg"
+  },
+  {
+    title: "Soi Ram - Freelance Restaurant Website",
+    period: "2025 - 2026",
+    description: [
+      "Production-grade Next.js / TypeScript / Tailwind site with dynamic theming, fluid clamp() typography, and data-driven menu rendering — managed full client lifecycle and deployment",
+      "Integrated Toast POS ordering alongside UberEats and DoorDash — enabling commission-free direct orders with a unified receipt-style UI",
+      "Retro 80s brand identity with custom typography, mobile-first layout, and SEO optimization"
+    ],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Toast POS", "SEO"],
+    links: {
+      info: "https://soiram.netlify.app"
+    },
+    image: "/images/soi-ram.jpg"
+  },
+  {
+    title: "Fracture Protocol - Roguelike Arena Shooter",
+    period: "2025 - 2026",
+    description: [
+      "Top-down roguelike arena shooter in Unity/C# — 3 boss encounters, 12 elite enemy types, and a 32-modifier progression system with rarity tiers and diminishing returns",
+      "Coroutine-driven boss AI with concurrent behaviors (fire patterns, drone phases, respawn timers), phase transitions at 66%/33% HP, and 0.8s visual telegraphing",
+      "Modifier dispatch system using string IDs queried at runtime — dynamic effect composition across 5 rarity tiers without hardcoded branches",
+      "Serialized run state across 4 boss scenes (11 fields) for full power allocation persistence; managed Git version control in a 2-person Unity project"
+    ],
+    technologies: ["Unity", "C#", "Game Design", "Roguelike", "AI Systems", "Git"],
+    links: {},
+    image: "/images/fracture-protocol.jpg"
+  },
+  {
     title: "CloudCopier - Cross-Device Clipboard Sync",
     period: "2024 - 2025",
     description: [
@@ -31,48 +73,6 @@ const projects: ProjectItem[] = [
       github: "https://github.com/FinlayCooper/CloudCopier"
     },
     image: "/images/cloudcopier.jpg"
-  },
-  {
-    title: "Quizzly - Online Multiplayer Trivia Game",
-    period: "Jan-April 2025",
-    description: [
-      "Real-time multiplayer trivia game using WebSockets for low-latency synchronous gameplay",
-      "C++ backend with concurrent thread management for handling multiple game sessions and player connections simultaneously",
-      "Implemented custom networking protocol for reliable message passing and game state synchronization across clients",
-      "Collaborative project with 5 contributors managing concurrent development workflows and version control"
-    ],
-    technologies: ["C++", "WebSockets", "Multithreading", "Concurrency", "Network Programming", "JavaScript"],
-    links: {
-      github: "https://github.com/FinlayCooper/Quizzly"
-    },
-    image: "/images/quizzly.jpg"
-  },
-  {
-    title: "Travel Planner - Full-Stack Web App",
-    period: "Fall 2024",
-    description: [
-      "JWT-secured React + Node.js (Firestore) for collaborative planning and scalable storage",
-      "Deployed on AWS EC2; tuned for responsiveness and reliability",
-      "Implemented modular components and server-side validation, with robust error handling and pagination for core views"
-    ],
-    technologies: ["React", "Node.js", "Firestore", "JWT", "AWS EC2", "Express"],
-    links: {
-      github: "https://github.com/FinlayCooper/TravelPlanner"
-    },
-    image: "/images/travel-planner.jpg"
-  },
-  {
-    title: "Against the Machines - 3D Unity Game",
-    period: "Fall 2023",
-    description: [
-      "Built a three-level Unity/C# action game; implemented player controls, enemy AI, and physics-driven interactions",
-      "Delivered in three Agile sprints with weekly stand-ups, demos, and retrospectives"
-    ],
-    technologies: ["Unity", "C#", "Game Development", "Agile"],
-    links: {
-      github: "https://github.com/FinlayCooper/Against-the-Machines"
-    },
-    image: "/images/against-the-machines.jpg"
   }
 ];
 

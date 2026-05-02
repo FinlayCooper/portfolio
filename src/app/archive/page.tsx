@@ -15,6 +15,28 @@ interface Project {
 
 const projects: Project[] = [
   {
+    year: '2026',
+    title: 'GTA Management System',
+    builtWith: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Prisma', 'Zod', 'REST API'],
+    links: {
+      external: 'https://control-alt-elites.netlify.app'
+    }
+  },
+  {
+    year: '2026',
+    title: 'Fracture Protocol',
+    builtWith: ['Unity', 'C#', 'Roguelike', 'Game Design', 'AI Systems'],
+    links: {}
+  },
+  {
+    year: '2025',
+    title: 'Soi Ram',
+    builtWith: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Toast POS', 'SEO'],
+    links: {
+      external: 'https://soiram.netlify.app'
+    }
+  },
+  {
     year: '2025',
     title: 'CloudCopier',
     builtWith: ['Swift', 'SwiftUI', 'C#', 'Node.js', 'Docker', 'REST API', 'CI/CD'],

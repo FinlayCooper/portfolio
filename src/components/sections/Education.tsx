@@ -10,6 +10,7 @@ interface EducationItem {
   location: string;
   gpa?: string;
   courses: string[];
+  involvement?: string[];
   image: string;
 }
 
@@ -29,6 +30,9 @@ const educationData: EducationItem[] = [
       "Requirements & Analysis",
       "Web Technologies",
       "Microprocessors & Digital Logic"
+    ],
+    involvement: [
+      "Western Engineering Auto Pilot (WEAP) — C++/ROS2 contributions to the autonomous vehicle path planning pipeline"
     ],
     image: "/images/engineering-building.jpg"
   }
@@ -90,10 +94,16 @@ const Education = () => {
                       </div>
                     </div>
 
-                    <div>
-                      <ul className="list-disc list-inside space-y-0.5">
-                      </ul>
-                    </div>
+                    {education.involvement && education.involvement.length > 0 && (
+                      <div>
+                        <h4 className="text-xs font-semibold text-finlayGreen uppercase tracking-wider mb-3">Extracurricular Activities</h4>
+                        <ul className="space-y-1">
+                          {education.involvement.map((item, i) => (
+                            <li key={i} className="text-xs text-gray-300">{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="relative h-72 md:h-full">

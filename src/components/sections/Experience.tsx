@@ -22,12 +22,12 @@ const experiences: ExperienceItem[] = [
         location: "Toronto, ON",
         period: "Summer 2025",
         description: [
-            "Sole developer for end-to-end rebuild—assessed the legacy prototype and paper workflows, met with operators/managers, prioritized a backlog, and shipped iterative releases from feedback",
-                "Built for plant operations: inspection forms, certificates, and reporting with tablet-first data entry, PDF output, and SharePoint delivery",
-                    "TypeScript React/React Native (Expo) frontends for tablets and web; streamlined flows and improved UX",
-            "Node.js/Express, MySQL, LLMs (MCP): backend (auth, PDF generation, SharePoint), schema design, and automated legacy migration",
-            "Deployed on BroadGrain's data centre (pm2/IIS deployment on remote desktop); wrote maintenance scripts/runbooks and trained the new owner for handoff",
-                "Impact: 15% faster (refactored); 75% faster (digitized)"
+            "Owned full product lifecycle as sole developer — defined requirements with plant managers, managed backlog, and shipped iterative releases under real operational deadlines",
+            "Engineered a schema-driven backend factory to auto-generate CRUD controllers, routes, and validation from a single schema — reducing 100+ files to 3 and enabling zero-code endpoint creation",
+            "Integrated Microsoft Graph API + Azure AD to automate SharePoint document delivery with token caching, retries, and exponential backoff — eliminating manual report distribution",
+            "Built 10 PDF reporting services (JSReport, Handlebars, digital signatures, multi-photo support), replacing paper-based compliance workflows across 8 categories",
+            "Integrated LLM tooling (MCP) for automated legacy data migration and schema derivation; deployed to on-prem infrastructure (pm2/IIS) and authored runbooks for successor handoff",
+            "Reduced processing time by 15% (refactoring) and 75% (digitization) across reporting workflows"
         ],
         technologies: ["TypeScript", "React", "React Native", "Expo", "Node.js", "Express", "MySQL", "SharePoint", "IIS", "pm2", "Docker"],
         companyLogo: "/images/broadgrain-logo.png",
