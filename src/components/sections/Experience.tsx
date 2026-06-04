@@ -28,9 +28,9 @@ const experiences: ExperienceItem[] = [
             "Implemented a dry-run assignment system enabling preview, weight tuning, and manual overrides before any assignments are committed"
         ],
         technologies: ["Next.js", "TypeScript", "Node.js", "Express", "MySQL", "Zod", "REST API"],
-        companyLogo: "",
+        companyLogo: "/images/western-engineering-logo.jpg",
         companyUrl: "",
-        screenshot: "/images/western-engineering-logo.png"
+        screenshot: "/images/western-engineering-screenshot.png"
     },
     {
         title: "Software Developer Intern",
