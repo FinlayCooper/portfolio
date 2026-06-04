@@ -17,10 +17,8 @@ const projects: Project[] = [
   {
     year: '2026',
     title: 'GTA Management System',
-    builtWith: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Prisma', 'Zod', 'REST API'],
-    links: {
-      external: 'https://control-alt-elites.netlify.app'
-    }
+    builtWith: ['TypeScript', 'Next.js', 'Node.js', 'Express', 'MySQL', 'Zod', 'REST API'],
+    links: {}
   },
   {
     year: '2026',
@@ -33,7 +31,7 @@ const projects: Project[] = [
     title: 'Soi Ram',
     builtWith: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Toast POS', 'SEO'],
     links: {
-      external: 'https://soiram.netlify.app'
+      external: 'https://soiram.ca'
     }
   },
   {

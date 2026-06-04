@@ -11,23 +11,39 @@ interface ExperienceItem {
     description: string[];
     technologies: string[];
     companyLogo: string;
-    companyUrl: string;
+    companyUrl?: string;
     screenshot: string;
 }
 
 const experiences: ExperienceItem[] = [
+    {
+        title: "Software Engineering Capstone — GTA Management System",
+        company: "Western University",
+        location: "London, ON",
+        period: "2025 - 2026",
+        description: [
+            "Built and deployed a full-stack platform (Next.js / TypeScript front end, Node.js / Express REST back end, MySQL) replacing spreadsheet-based GTA hiring at Western Engineering — in active department-wide use across 100+ TAs, professors, and committee members",
+            "Developed 78+ REST API endpoints with role-based access control (student/professor/committee), Zod validation, and ownership enforcement — covered by an automated test suite",
+            "Designed a configurable matching algorithm combining skill match, preferences, course history, and review data with adjustable weights, executing assignments across 4 priority waves",
+            "Implemented a dry-run assignment system enabling preview, weight tuning, and manual overrides before any assignments are committed"
+        ],
+        technologies: ["Next.js", "TypeScript", "Node.js", "Express", "MySQL", "Zod", "REST API"],
+        companyLogo: "",
+        companyUrl: "",
+        screenshot: "/images/western-engineering-logo.png"
+    },
     {
         title: "Software Developer Intern",
         company: "BroadGrain Commodities",
         location: "Toronto, ON",
         period: "Summer 2025",
         description: [
-            "Owned full product lifecycle as sole developer — defined requirements with plant managers, managed backlog, and shipped iterative releases under real operational deadlines",
-            "Engineered a schema-driven backend factory to auto-generate CRUD controllers, routes, and validation from a single schema — reducing 100+ files to 3 and enabling zero-code endpoint creation",
-            "Integrated Microsoft Graph API + Azure AD to automate SharePoint document delivery with token caching, retries, and exponential backoff — eliminating manual report distribution",
-            "Built 10 PDF reporting services (JSReport, Handlebars, digital signatures, multi-photo support), replacing paper-based compliance workflows across 8 categories",
-            "Integrated LLM tooling (MCP) for automated legacy data migration and schema derivation; deployed to on-prem infrastructure (pm2/IIS) and authored runbooks for successor handoff",
-            "Reduced processing time by 15% (refactoring) and 75% (digitization) across reporting workflows"
+            "Rebuilt the company's compliance platform as sole developer, consolidating a legacy .NET web app and MAUI mobile app into a unified cross-platform React Native / TypeScript interface",
+            "Engineered a schema-driven backend factory (Node.js) that auto-generates CRUD controllers, routes, and validation from a single config — reducing 100+ files to 3",
+            "Integrated Microsoft Graph API + Azure AD to automate SharePoint document delivery with token caching, retries, and exponential backoff",
+            "Migrated all production data to a redesigned normalized schema after resolving structural mismatches from the original denormalized database",
+            "Built 10 PDF reporting services (JSReport, Handlebars, digital signatures, multi-photo support) to replace paper-based compliance workflows across 8 categories",
+            "Reduced processing time by 15% through refactoring and 75% through digitization across all reporting workflows"
         ],
         technologies: ["TypeScript", "React", "React Native", "Expo", "Node.js", "Express", "MySQL", "SharePoint", "IIS", "pm2", "Docker"],
         companyLogo: "/images/broadgrain-logo.png",
@@ -62,7 +78,7 @@ const experiences: ExperienceItem[] = [
         ],
         technologies: ["Attention to Detail", "Customer Service", "Employee Training"],
         companyLogo: "/images/three-lakes-logo.png",
-        companyUrl: "https://www.facebook.com/3lakesmuskoka/",
+        companyUrl: "https://3lake.ca",
             screenshot: "/images/three-lakes-screenshot.png"
     }
 ];
@@ -103,26 +119,35 @@ const Experience = () => {
             <div className="ml-12 md:ml-20 p-6 bg-gray-900 rounded-lg shadow-sm flex flex-col md:flex-row gap-6">
             <div className="md:w-2/3">
             <div className="flex items-center gap-4 mb-4">
-            <a
-            href={experience.companyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block w-12 h-12 relative rounded-lg overflow-hidden hover:opacity-80 transition-opacity"
-            >
-            {experience.companyLogo ? (
-                <Image
-                src={experience.companyLogo}
-                alt={`${experience.company} logo`}
-                fill
-                className="object-contain"
-                sizes="48px"
-                />
-            ) : (
-            <div className="w-full h-full bg-gray-800 flex items-center justify-center text-finlayGreen font-bold text-lg">
-            {experience.company.charAt(0)}
-            </div>
-            )}
-            </a>
+            {(() => {
+                const logo = experience.companyLogo ? (
+                    <Image
+                    src={experience.companyLogo}
+                    alt={`${experience.company} logo`}
+                    fill
+                    className="object-contain"
+                    sizes="48px"
+                    />
+                ) : (
+                <div className="w-full h-full bg-gray-800 flex items-center justify-center text-finlayGreen font-bold text-lg">
+                {experience.company.charAt(0)}
+                </div>
+                );
+                return experience.companyUrl ? (
+                    <a
+                    href={experience.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-12 h-12 relative rounded-lg overflow-hidden hover:opacity-80 transition-opacity"
+                    >
+                    {logo}
+                    </a>
+                ) : (
+                    <div className="block w-12 h-12 relative rounded-lg overflow-hidden">
+                    {logo}
+                    </div>
+                );
+            })()}
             <div>
             <h3 className="text-xl font-bold text-finlayGreen">{experience.title}</h3>
             <div className="flex items-center gap-2">
@@ -150,20 +175,32 @@ const Experience = () => {
             </div>
             </div>
             {experience.screenshot && (
-                <a
-                href={experience.companyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="md:w-1/3 block relative h-48 rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200"
-                >
-                <Image
-                src={experience.screenshot}
-                alt={`${experience.company} website screenshot`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                </a>
+                experience.companyUrl ? (
+                    <a
+                    href={experience.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="md:w-1/3 block relative h-48 rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-200"
+                    >
+                    <Image
+                    src={experience.screenshot}
+                    alt={`${experience.company} website screenshot`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    </a>
+                ) : (
+                    <div className="md:w-1/3 block relative h-48 rounded-lg overflow-hidden bg-[#4F2D7F]">
+                    <Image
+                    src={experience.screenshot}
+                    alt={`${experience.company} logo`}
+                    fill
+                    className="object-contain p-4"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    </div>
+                )
             )}
             </div>
             </motion.div>

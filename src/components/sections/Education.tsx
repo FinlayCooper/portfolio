@@ -22,14 +22,15 @@ const educationData: EducationItem[] = [
     location: "London, ON",
     gpa: "Dean's Honour List",
     courses: [
-      "Data Structures & Algorithms",
+      "Algorithms & Data Structures",
       "Operating Systems",
       "DBMS",
       "Networking",
-      "Software Design & Construction",
-      "Requirements & Analysis",
       "Web Technologies",
-      "Microprocessors & Digital Logic"
+      "Information Security",
+      "Machine Learning",
+      "Cloud Computing",
+      "Software Testing & Maintenance"
     ],
     involvement: [
       "Western Engineering Auto Pilot (WEAP) — C++/ROS2 contributions to the autonomous vehicle path planning pipeline"

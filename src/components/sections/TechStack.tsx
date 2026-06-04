@@ -10,20 +10,23 @@ import {
   SiPython,
   SiCplusplus,
   SiReact,
+  SiNextdotjs,
   SiNodedotjs,
   SiExpress,
-  SiSwift,
   SiUnity,
   SiPostgresql,
   SiMongodb,
   SiMysql,
   SiFirebase,
+  SiPrisma,
   SiDocker,
   SiGit,
   SiNginx,
   SiDotnet,
+  SiGithubactions,
 } from 'react-icons/si';
-import { FaJava } from 'react-icons/fa6';
+import { FaJava, FaDatabase, FaServer } from 'react-icons/fa6';
+import { VscAzure } from 'react-icons/vsc';
 
 interface TechItem {
   name: string;
@@ -34,27 +37,33 @@ interface TechItem {
 
 const techStack: TechItem[] = [
   // Languages & Frameworks
-  { name: 'Java', icon: FaJava, color: '#007396', category: 'language' },
-  { name: 'C# / .NET', icon: SiDotnet, color: '#512BD4', category: 'language' },
   { name: 'TypeScript', icon: SiTypescript, color: '#3178C6', category: 'language' },
   { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E', category: 'language' },
+  { name: 'Java', icon: FaJava, color: '#007396', category: 'language' },
+  { name: 'C# / .NET', icon: SiDotnet, color: '#512BD4', category: 'language' },
   { name: 'Python', icon: SiPython, color: '#3776AB', category: 'language' },
   { name: 'C++', icon: SiCplusplus, color: '#00599C', category: 'language' },
+  { name: 'SQL', icon: FaDatabase, color: '#4479A1', category: 'language' },
   { name: 'React', icon: SiReact, color: '#61DAFB', category: 'language' },
+  { name: 'React Native', icon: SiReact, color: '#61DAFB', category: 'language' },
+  { name: 'Next.js', icon: SiNextdotjs, color: '#FFFFFF', category: 'language' },
   { name: 'Node.js', icon: SiNodedotjs, color: '#339933', category: 'language' },
   { name: 'Express.js', icon: SiExpress, color: '#F7DF1E', category: 'language' },
-  { name: 'Swift', icon: SiSwift, color: '#FA7343', category: 'language' },
   { name: 'Unity', icon: SiUnity, color: '#FFFFFF', category: 'language' },
 
-  // Databases & Cloud
+  // Databases
   { name: 'MySQL', icon: SiMysql, color: '#4479A1', category: 'database' },
   { name: 'Firestore', icon: SiFirebase, color: '#FFCA28', category: 'database' },
   { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1', category: 'database' },
   { name: 'MongoDB', icon: SiMongodb, color: '#47A248', category: 'database' },
-  { name: 'Docker', icon: SiDocker, color: '#2496ED', category: 'cloud' },
+  { name: 'Prisma', icon: SiPrisma, color: '#FFFFFF', category: 'database' },
 
-  // Tools & DevOps
+  // Cloud, Tools & DevOps
+  { name: 'Azure / SharePoint', icon: VscAzure, color: '#0078D4', category: 'cloud' },
+  { name: 'IIS', icon: FaServer, color: '#9CA3AF', category: 'cloud' },
+  { name: 'Docker', icon: SiDocker, color: '#2496ED', category: 'cloud' },
   { name: 'Git', icon: SiGit, color: '#F05032', category: 'tool' },
+  { name: 'CI/CD', icon: SiGithubactions, color: '#2088FF', category: 'tool' },
   { name: 'Nginx', icon: SiNginx, color: '#009639', category: 'tool' },
 ];
 
@@ -71,7 +80,7 @@ const TechStack = () => {
   useEffect(() => {
     if (isInView && !isHovered && !isDragging) {
       controls.start({
-        x: [0, -1920],
+        x: [0, -2450],
         transition: {
           x: {
             repeat: Infinity,

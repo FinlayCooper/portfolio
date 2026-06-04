@@ -18,21 +18,6 @@ interface ProjectItem {
 
 const projects: ProjectItem[] = [
   {
-    title: "GTA Management System - Capstone",
-    period: "2025 - 2026",
-    description: [
-      "Full-stack platform replacing spreadsheet-based GTA hiring at Western Engineering — deployed department-wide across 100+ TAs, professors, and committee members",
-      "Configurable matching algorithm combining skill match, preferences, course history, and review data with adjustable weights — executing assignments across 4 priority waves",
-      "78+ REST API endpoints with role-based access control (student/professor/committee), Zod validation, and ownership enforcement — fully tested via automated bash suite",
-      "Dry-run assignment system enabling preview, weight tuning, and manual overrides before commit"
-    ],
-    technologies: ["TypeScript", "React", "Node.js", "Express", "PostgreSQL", "Prisma", "Zod", "REST API"],
-    links: {
-      info: "https://control-alt-elites.netlify.app"
-    },
-    image: "/images/gta-management.jpg"
-  },
-  {
     title: "Soi Ram - Freelance Restaurant Website",
     period: "2025 - 2026",
     description: [
@@ -42,7 +27,7 @@ const projects: ProjectItem[] = [
     ],
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Toast POS", "SEO"],
     links: {
-      info: "https://soiram.netlify.app"
+      info: "https://soiram.ca"
     },
     image: "/images/soi-ram.jpg"
   },
@@ -73,6 +58,20 @@ const projects: ProjectItem[] = [
       github: "https://github.com/FinlayCooper/CloudCopier"
     },
     image: "/images/cloudcopier.jpg"
+  },
+  {
+    title: "Quizzly - Networked Trivia Game",
+    period: "2025",
+    description: [
+      "Multiplayer trivia game built in C++ with a Qt desktop GUI",
+      "Client–server architecture over sockets for real-time multiplayer quiz sessions and synchronized game state",
+      "Object-oriented design covering question rounds, player connections, and scoring"
+    ],
+    technologies: ["C++", "Qt", "Network Programming", "Game Development"],
+    links: {
+      github: "https://github.com/FinlayCooper/Quizzly"
+    },
+    image: "/images/quizzly.jpg"
   }
 ];
 
