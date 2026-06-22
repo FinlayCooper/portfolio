@@ -24,6 +24,11 @@ import {
   SiNginx,
   SiDotnet,
   SiGithubactions,
+  SiTailwindcss,
+  SiKubernetes,
+  SiLinux,
+  SiGnubash,
+  SiClaude,
 } from 'react-icons/si';
 import { FaJava, FaDatabase, FaServer } from 'react-icons/fa6';
 import { VscAzure } from 'react-icons/vsc';
@@ -49,6 +54,8 @@ const techStack: TechItem[] = [
   { name: 'Next.js', icon: SiNextdotjs, color: '#FFFFFF', category: 'language' },
   { name: 'Node.js', icon: SiNodedotjs, color: '#339933', category: 'language' },
   { name: 'Express.js', icon: SiExpress, color: '#F7DF1E', category: 'language' },
+  { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4', category: 'language' },
+  { name: 'Bash', icon: SiGnubash, color: '#4EAA25', category: 'language' },
   { name: 'Unity', icon: SiUnity, color: '#FFFFFF', category: 'language' },
 
   // Databases
@@ -62,9 +69,12 @@ const techStack: TechItem[] = [
   { name: 'Azure / SharePoint', icon: VscAzure, color: '#0078D4', category: 'cloud' },
   { name: 'IIS', icon: FaServer, color: '#9CA3AF', category: 'cloud' },
   { name: 'Docker', icon: SiDocker, color: '#2496ED', category: 'cloud' },
+  { name: 'Kubernetes', icon: SiKubernetes, color: '#326CE5', category: 'cloud' },
   { name: 'Git', icon: SiGit, color: '#F05032', category: 'tool' },
   { name: 'CI/CD', icon: SiGithubactions, color: '#2088FF', category: 'tool' },
   { name: 'Nginx', icon: SiNginx, color: '#009639', category: 'tool' },
+  { name: 'Linux', icon: SiLinux, color: '#FCC624', category: 'tool' },
+  { name: 'Claude Code', icon: SiClaude, color: '#D97757', category: 'tool' },
 ];
 
 const TechStack = () => {
@@ -80,7 +90,7 @@ const TechStack = () => {
   useEffect(() => {
     if (isInView && !isHovered && !isDragging) {
       controls.start({
-        x: [0, -2450],
+        x: [0, -2960],
         transition: {
           x: {
             repeat: Infinity,

@@ -23,7 +23,8 @@ const experiences: ExperienceItem[] = [
         period: "2025 - 2026",
         description: [
             "Built and deployed a full-stack platform (Next.js / TypeScript front end, Node.js / Express REST back end, MySQL) replacing spreadsheet-based GTA hiring at Western Engineering — in active department-wide use across 100+ TAs, professors, and committee members",
-            "Developed 78+ REST API endpoints with role-based access control (student/professor/committee), Zod validation, and ownership enforcement — covered by an automated test suite",
+            "Built the React / TypeScript front end with a reusable, fully-typed layout system (a generic dropdown shared across 6+ views) and a drag-and-drop interface for manual TA reassignment",
+            "Developed 78+ RESTful API endpoints with role-based access control (student/professor/committee), Zod validation, and ownership enforcement — covered by an automated test suite",
             "Designed a configurable matching algorithm combining skill match, preferences, course history, and review data with adjustable weights, executing assignments across 4 priority waves",
             "Implemented a dry-run assignment system enabling preview, weight tuning, and manual overrides before any assignments are committed"
         ],
@@ -38,10 +39,10 @@ const experiences: ExperienceItem[] = [
         location: "Toronto, ON",
         period: "Summer 2025",
         description: [
-            "Rebuilt the company's compliance platform as sole developer, consolidating a legacy .NET web app and MAUI mobile app into a unified cross-platform React Native / TypeScript interface",
-            "Engineered a schema-driven backend factory (Node.js) that auto-generates CRUD controllers, routes, and validation from a single config — reducing 100+ files to 3",
-            "Integrated Microsoft Graph API + Azure AD to automate SharePoint document delivery with token caching, retries, and exponential backoff",
-            "Migrated all production data to a redesigned normalized schema after resolving structural mismatches from the original denormalized database",
+            "Rebuilt the company's multi-tenant compliance platform as sole developer, consolidating a legacy .NET web app and MAUI mobile app into a unified cross-platform React Native / TypeScript interface across 3 plant locations",
+            "Engineered a schema-driven backend factory (Node.js) that auto-generates CRUD controllers, RESTful routes, and validation from a single config — reducing 100+ files to 3",
+            "Integrated Microsoft Graph API + Azure AD (OAuth 2.0 / OpenID Connect) to automate SharePoint document delivery with token caching, refresh, retries, and exponential backoff",
+            "Migrated all production data to a redesigned normalized relational schema after resolving structural mismatches from the original denormalized database",
             "Built 10 PDF reporting services (JSReport, Handlebars, digital signatures, multi-photo support) to replace paper-based compliance workflows across 8 categories",
             "Reduced processing time by 15% through refactoring and 75% through digitization across all reporting workflows"
         ],
