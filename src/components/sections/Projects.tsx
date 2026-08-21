@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import TerminalHeading from '@/components/ui/TerminalHeading';
 
 interface ProjectItem {
   title: string;
@@ -18,22 +19,8 @@ interface ProjectItem {
 
 const projects: ProjectItem[] = [
   {
-    title: "Soi Ram - Freelance Restaurant Website",
-    period: "2025 - 2026",
-    description: [
-      "Production-grade Next.js / TypeScript / Tailwind site with dynamic theming, fluid clamp() typography, and data-driven menu rendering — managed full client lifecycle and deployment",
-      "Integrated Toast POS ordering alongside UberEats and DoorDash — enabling commission-free direct orders with a unified receipt-style UI",
-      "Retro 80s brand identity with custom typography, mobile-first layout, and SEO optimization"
-    ],
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Toast POS", "SEO"],
-    links: {
-      info: "https://soiram.ca"
-    },
-    image: "/images/soi-ram.jpg"
-  },
-  {
     title: "Fracture Protocol - Roguelike Arena Shooter",
-    period: "2025 - 2026",
+    period: "April 2026",
     description: [
       "Top-down roguelike arena shooter in Unity/C# — 3 boss encounters, 12 elite enemy types, and a 32-modifier progression system with rarity tiers and diminishing returns",
       "Coroutine-driven boss AI with concurrent behaviors (fire patterns, drone phases, respawn timers), phase transitions at 66%/33% HP, and 0.8s visual telegraphing",
@@ -77,44 +64,42 @@ const projects: ProjectItem[] = [
 
 const Projects = () => {
   return (
-    <section id="projects" className="py-20 bg-black">
+    <section id="projects" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-finlayGreen mb-4">Featured Projects</h2>
-          <p className="text-lg text-gray-300">Some of my recent work</p>
-        </motion.div>
+        <TerminalHeading
+          command="ls -l ~/projects"
+          title="Featured Projects"
+          subtitle="Personal builds, outside of client and course work."
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="bg-gray-900 rounded-xl shadow-sm overflow-hidden"
+              transition={{ duration: 0.35, delay: index * 0.08 }}
+              className="border border-term-dim bg-term-panel/80 backdrop-blur-sm hover:border-finlayGreen/50 transition-colors duration-200"
             >
               <div className="p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg font-bold text-finlayGreen">{project.title}</h3>
-                  <p className="text-sm font-medium text-gray-400">{project.period}</p>
+                  <h3 className="font-mono text-base sm:text-lg font-bold text-finlayGreen leading-tight">{project.title}</h3>
+                  <p className="font-mono text-xs text-term-muted shrink-0 ml-3">{project.period}</p>
                 </div>
-                <ul className="text-sm text-gray-300 mb-3 space-y-1 list-disc list-inside">
+                <ul className="mb-4 space-y-1.5">
                   {project.description.map((desc, i) => (
-                    <li key={i}>{desc}</li>
+                    <li key={i} className="flex gap-2 text-sm text-term-fg leading-relaxed">
+                      <span aria-hidden="true" className="font-mono text-term-dim select-none shrink-0">–</span>
+                      <span>{desc}</span>
+                    </li>
                   ))}
                 </ul>
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {project.technologies.map((tech, i) => (
                     <span
                       key={i}
-                      className="px-2 py-0.5 bg-gray-800 text-finlayGreen text-xs rounded-full border border-gray-700 hover:bg-gray-700 hover:border-gray-600 transition-all duration-200"
+                      className="px-2 py-0.5 font-mono text-xs text-finlayGreen border border-term-dim"
                     >
                       {tech}
                     </span>
@@ -126,12 +111,12 @@ const Projects = () => {
                       href={project.links.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-finlayGreen hover:text-finlayGreen/80 transition-colors flex items-center space-x-1"
+                      className="text-finlayGreen hover:text-term-amber transition-colors flex items-center space-x-1"
                     >
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z" />
                       </svg>
-                      <span className="text-xs font-medium">Watch Demo</span>
+                      <span className="font-mono text-xs">Watch Demo</span>
                     </a>
                   )}
                   {project.links?.github && (
@@ -139,7 +124,7 @@ const Projects = () => {
                       href={project.links.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-finlayGreen hover:text-finlayGreen/80 transition-colors flex items-center space-x-1"
+                      className="text-finlayGreen hover:text-term-amber transition-colors flex items-center space-x-1"
                     >
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -148,7 +133,7 @@ const Projects = () => {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-xs font-medium">GitHub</span>
+                      <span className="font-mono text-xs">GitHub</span>
                     </a>
                   )}
                   {project.links?.info && (
@@ -156,12 +141,12 @@ const Projects = () => {
                       href={project.links.info}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-finlayGreen hover:text-finlayGreen/80 transition-colors flex items-center space-x-1"
+                      className="text-finlayGreen hover:text-term-amber transition-colors flex items-center space-x-1"
                     >
                       <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                       </svg>
-                      <span className="text-xs font-medium">Live Site</span>
+                      <span className="font-mono text-xs">Live Site</span>
                     </a>
                   )}
                 </div>
@@ -171,25 +156,19 @@ const Projects = () => {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mt-12"
+          transition={{ duration: 0.35 }}
+          className="mt-12"
         >
           <a
             href="/archive"
-            className="inline-flex items-center text-finlayGreen hover:text-finlayGreen/80 transition-colors duration-200 group"
+            className="inline-flex items-center gap-2 font-mono text-sm text-finlayGreen hover:text-term-amber transition-colors duration-200"
           >
-            <span className="text-lg font-medium">View Full Project Archive</span>
-            <svg
-              className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
+            <span className="text-term-dim">$</span>
+            <span>ls ~/projects/archive</span>
+            <span aria-hidden="true">→</span>
           </a>
         </motion.div>
       </div>

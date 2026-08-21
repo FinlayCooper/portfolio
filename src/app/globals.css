@@ -1,59 +1,166 @@
 @import "tailwindcss";
 
+/* ── Terminal palette ──────────────────────────────────────────────
+   Two real phosphor colours, not one accent on black.
+   Green is the voice; amber is rationed to live-status markers only. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #05070a;
+  --foreground: #d7e0d9;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-finlayGreen: #1ce44d;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-term-bg: #05070a;
+  --color-term-panel: #0a0f14;
+  --color-term-dim: #0f7a2b;
+  --color-term-amber: #ffb000;
+  --color-term-fg: #d7e0d9;
+  --color-term-muted: #6b7f72;
+
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* The ground colour lives on <html>, not <body>. The rain canvas is a body
+   child at z-index -10, and a negative-z child paints *behind* its parent's
+   background — an opaque body would bury it. */
+html {
+  background: var(--color-term-bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: transparent;
+  color: var(--color-term-fg);
+  font-family: var(--font-sans);
 }
 
+::selection {
+  background: #1ce44d;
+  color: #05070a;
+}
+
+/* Terminal-thin scrollbar, consistent with the rest of the chrome. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0f7a2b transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: #05070a;
+}
+*::-webkit-scrollbar-thumb {
+  background: #0f7a2b;
+  border: 2px solid #05070a;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #1ce44d;
+}
+
+/* Keyboard focus must stay obvious against a dark, busy background. */
+:focus-visible {
+  outline: 2px solid #1ce44d;
+  outline-offset: 2px;
+}
+
+/* ── Terminal primitives ────────────────────────────────────────── */
+
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 .blink {
-  animation: blink 0.8s step-end infinite;
+  animation: blink 1.06s step-end infinite;
 }
 
-@keyframes typing {
-  0% {
-    width: 0;
-    border-right-color: var(--foreground);
-  }
-  99% {
-    width: 100%;
-    border-right-color: var(--foreground);
-  }
-  100% {
-    width: 100%;
-    border-right-color: transparent;
-  }
+/* Solid block caret, the way a real TTY draws it. */
+.caret::after {
+  content: "";
+  display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 0.15em;
+  background: #1ce44d;
+  vertical-align: text-bottom;
+  animation: blink 1.06s step-end infinite;
 }
 
-.typing {
+/* Hairline rule in spent-phosphor green, used to close section headers. */
+.term-rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    #0f7a2b 0%,
+    #0f7a2b 22%,
+    rgba(15, 122, 43, 0.15) 100%
+  );
+}
+
+/* ── Boot sequence ──────────────────────────────────────────────────
+   Driven by CSS, not by mounting state, so every word of the hero ships
+   in the server-rendered HTML and only the *reveal* is animated. No-JS
+   and crawlers get the finished session; reduced-motion lands there too,
+   because zero-duration + forwards jumps straight to the end state. */
+
+@keyframes bootReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes bootType {
+  from { width: 0; }
+  to   { width: var(--type-ch); }
+}
+
+@keyframes bootCaret {
+  0%, 99% { border-right-color: #1ce44d; }
+  100%    { border-right-color: transparent; }
+}
+
+.boot-reveal {
+  opacity: 0;
+  animation: bootReveal 0.22s ease-out var(--boot-delay, 0s) forwards;
+}
+
+.boot-type {
+  display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 2px solid var(--foreground);
-  display: inline-block;
-  animation: typing 3s steps(16, end) forwards;
+  vertical-align: bottom;
+  width: 0;
+  border-right: 2px solid transparent;
+  animation:
+    bootType var(--type-dur) steps(var(--type-steps), end) var(--boot-delay, 0s) forwards,
+    bootCaret var(--type-dur) step-end var(--boot-delay, 0s) forwards;
+}
+
+/* A click, keypress, or scroll drops straight to the finished session —
+   a repeat visitor is never held behind the animation. */
+[data-boot='skip'] .boot-reveal,
+[data-boot='skip'] .boot-type {
+  animation-delay: 0s !important;
+  animation-duration: 0s !important;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .blink,
+  .caret::after {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

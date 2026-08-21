@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import TerminalHeading from '@/components/ui/TerminalHeading';
 
 interface EducationItem {
   school: string;
@@ -41,53 +42,48 @@ const educationData: EducationItem[] = [
 
 const Education = () => {
   return (
-    <section id="education" className="py-20 bg-black">
+    <section id="education" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-finlayGreen mb-4">Education</h2>
-          <p className="text-lg text-gray-300">Academic qualifications and achievements</p>
-        </motion.div>
+        <TerminalHeading
+          command="cat education.md"
+          title="Education"
+          subtitle="Academic qualifications and achievements."
+        />
 
         <div className="grid grid-cols-1 gap-8">
           {educationData.map((education, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="bg-gray-900 rounded-xl shadow-sm overflow-hidden"
+              transition={{ duration: 0.35 }}
+              className="border border-term-dim bg-term-panel/80 backdrop-blur-sm overflow-hidden"
             >
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="p-6 md:p-8 lg:p-10">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
                     <div>
-                      <h3 className="text-lg md:text-xl font-bold text-finlayGreen">{education.school}</h3>
-                      <p className="text-base text-gray-300 mt-1">{education.degree}</p>
+                      <h3 className="font-mono text-lg md:text-xl font-bold text-finlayGreen">{education.school}</h3>
+                      <p className="text-base text-term-fg mt-1">{education.degree}</p>
                       {education.gpa && (
-                        <p className="text-xs text-finlayGreen font-medium mt-1">{education.gpa}</p>
+                        <p className="font-mono text-xs text-term-amber mt-1">{education.gpa}</p>
                       )}
                     </div>
                     <div className="mt-2 md:mt-0 text-right">
-                      <p className="text-sm text-gray-400">{education.period}</p>
-                      <p className="text-sm text-gray-400">{education.location}</p>
+                      <p className="font-mono text-sm text-term-muted">{education.period}</p>
+                      <p className="font-mono text-sm text-term-muted">{education.location}</p>
                     </div>
                   </div>
 
                   <div className="space-y-8">
                     <div>
-                      <h4 className="text-xs font-semibold text-finlayGreen uppercase tracking-wider mb-3">Relevant Courses</h4>
+                      <h4 className="font-mono text-xs font-semibold text-finlayGreen uppercase tracking-widest mb-3">Relevant Courses</h4>
                       <div className="flex flex-wrap gap-1.5">
                         {education.courses.map((course, i) => (
                           <span
                             key={i}
-                            className="px-2.5 py-0.5 bg-gray-800 text-finlayGreen text-xs rounded-full border border-gray-700"
+                            className="px-2.5 py-0.5 font-mono text-xs text-finlayGreen border border-term-dim"
                           >
                             {course}
                           </span>
@@ -97,10 +93,10 @@ const Education = () => {
 
                     {education.involvement && education.involvement.length > 0 && (
                       <div>
-                        <h4 className="text-xs font-semibold text-finlayGreen uppercase tracking-wider mb-3">Extracurricular Activities</h4>
+                        <h4 className="font-mono text-xs font-semibold text-finlayGreen uppercase tracking-widest mb-3">Extracurricular Activities</h4>
                         <ul className="space-y-1">
                           {education.involvement.map((item, i) => (
-                            <li key={i} className="text-xs text-gray-300">{item}</li>
+                            <li key={i} className="text-xs text-term-fg leading-relaxed">{item}</li>
                           ))}
                         </ul>
                       </div>

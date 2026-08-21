@@ -50,7 +50,7 @@ const techStack: TechItem[] = [
   { name: 'C++', icon: SiCplusplus, color: '#00599C', category: 'language' },
   { name: 'SQL', icon: FaDatabase, color: '#4479A1', category: 'language' },
   { name: 'React', icon: SiReact, color: '#61DAFB', category: 'language' },
-  { name: 'React Native', icon: SiReact, color: '#61DAFB', category: 'language' },
+  { name: 'React Native / Expo', icon: SiReact, color: '#61DAFB', category: 'language' },
   { name: 'Next.js', icon: SiNextdotjs, color: '#FFFFFF', category: 'language' },
   { name: 'Node.js', icon: SiNodedotjs, color: '#339933', category: 'language' },
   { name: 'Express.js', icon: SiExpress, color: '#F7DF1E', category: 'language' },
@@ -141,11 +141,19 @@ const TechStack = () => {
 
   return (
     <>
-      <section id="tech-stack" className="py-16 bg-black">
+      <section id="tech-stack" className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-finlayGreen text-center mb-8">
+          <p className="font-mono text-xs sm:text-sm mb-3">
+            <span className="text-term-dim">finlay@portfolio</span>
+            <span className="text-term-muted">:</span>
+            <span className="text-term-dim">~</span>
+            <span className="text-term-muted">$ </span>
+            <span className="text-finlayGreen">which -a *</span>
+          </p>
+          <h2 className="font-mono text-2xl sm:text-3xl font-bold text-finlayGreen mb-2">
             Tech Stack
           </h2>
+          <div className="term-rule mb-8" />
           <div 
             ref={containerRef}
             className="relative w-full overflow-x-auto overflow-y-hidden cursor-grab active:cursor-grabbing no-scrollbar"
@@ -176,7 +184,7 @@ const TechStack = () => {
                   <div className="w-12 h-12 relative flex items-center justify-center">
                     {renderIcon(tech.icon, tech.color)}
                   </div>
-                  <span className="text-sm text-gray-300 text-center whitespace-nowrap">
+                  <span className="font-mono text-xs text-term-muted text-center whitespace-nowrap">
                     {tech.name}
                   </span>
                 </div>

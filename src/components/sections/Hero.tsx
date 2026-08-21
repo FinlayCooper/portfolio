@@ -1,74 +1,144 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import type { CSSProperties } from 'react';
+
+const CMD_WHOAMI = 'whoami';
+const CMD_SUMMARY = 'cat summary.txt';
+
+const TYPE_S = 0.045; // seconds per character
+
+/** Commands type; output prints at once, the way a real shell behaves. */
+const typeStyle = (text: string, delay: number): CSSProperties =>
+  ({
+    '--type-ch': `${text.length}ch`,
+    '--type-steps': text.length,
+    '--type-dur': `${(text.length * TYPE_S).toFixed(2)}s`,
+    '--boot-delay': `${delay.toFixed(2)}s`,
+  }) as CSSProperties;
+
+const revealStyle = (delay: number): CSSProperties =>
+  ({ '--boot-delay': `${delay.toFixed(2)}s` }) as CSSProperties;
+
+// Timeline, in seconds. Everything lands inside 1.6s.
+const T_WHOAMI = 0;
+const T_IDENTITY = T_WHOAMI + CMD_WHOAMI.length * TYPE_S + 0.17;
+const T_SUMMARY_CMD = T_IDENTITY + 0.16;
+const T_SUMMARY = T_SUMMARY_CMD + CMD_SUMMARY.length * TYPE_S + 0.17;
+const T_FINAL = T_SUMMARY + 0.16;
+
+const Prompt = () => (
+  <>
+    <span className="text-term-dim">finlay@portfolio</span>
+    <span className="text-term-muted">:</span>
+    <span className="text-term-dim">~</span>
+    <span className="text-term-muted">$ </span>
+  </>
+);
 
 const Hero = () => {
+  const [skipped, setSkipped] = useState(false);
+
+  useEffect(() => {
+    if (skipped) return;
+    const skip = () => setSkipped(true);
+    const events = ['pointerdown', 'keydown', 'wheel', 'touchstart'] as const;
+    events.forEach((e) => window.addEventListener(e, skip, { passive: true }));
+    return () => events.forEach((e) => window.removeEventListener(e, skip));
+  }, [skipped]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-black pt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center">
-        {/* Left: Text Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="md:w-1/2 space-y-6 text-center md:text-left"
-        >
-          <h1 className="text-5xl md:text-7xl font-extrabold text-finlayGreen mb-4 tracking-tight leading-tight">
-            Finlay Cooper
-          </h1>
-          <h2 className="text-lg md:text-xl text-finlayGreen mb-4 font-medium">
-            Software Engineer
-          </h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-base md:text-lg text-gray-300 max-w-xl mb-6 leading-relaxed"
-          >
-            Software Engineering graduate from Western University with a focus on full-stack development, systems programming, and shipping software that sees real use. From a deployed capstone managing 100+ TAs to freelance client work to a completed roguelike.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
-          >
-            <a
-              href="#projects"
-              className="bg-finlayGreen text-black font-medium px-6 py-3 md:px-8 md:py-4 rounded-lg hover:bg-finlayGreen/80 transition transform hover:scale-105"
+    <section
+      data-boot={skipped ? 'skip' : undefined}
+      className="relative min-h-screen flex items-center pt-24 pb-16"
+    >
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center gap-10 md:gap-14">
+        {/* Left: the session */}
+        <div className="md:w-3/5 font-mono text-sm sm:text-base">
+          <p>
+            <Prompt />
+            <span
+              className="boot-type text-finlayGreen"
+              style={typeStyle(CMD_WHOAMI, T_WHOAMI)}
             >
-              View My Work
-            </a>
-            <a
-              href="#contact"
-              className="bg-gray-800 text-finlayGreen font-medium px-6 py-3 md:px-8 md:py-4 rounded-lg border border-gray-700 hover:bg-gray-700 transition transform hover:scale-105"
+              {CMD_WHOAMI}
+            </span>
+          </p>
+
+          <div
+            className="boot-reveal mt-5 mb-7"
+            style={revealStyle(T_IDENTITY)}
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-finlayGreen tracking-tight leading-none">
+              FINLAY COOPER
+            </h1>
+            <p className="mt-2 text-term-muted text-base sm:text-lg">
+              software engineer
+            </p>
+          </div>
+
+          <p className="boot-reveal" style={revealStyle(T_SUMMARY_CMD)}>
+            <Prompt />
+            <span
+              className="boot-type text-finlayGreen"
+              style={typeStyle(CMD_SUMMARY, T_SUMMARY_CMD)}
             >
-              Contact Me
-            </a>
-          </motion.div>
-        </motion.div>
-        {/* Right: Animated Image */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-8 md:mt-0 md:w-1/2 flex justify-center"
-        >
+              {CMD_SUMMARY}
+            </span>
+          </p>
+
+          <p
+            className="boot-reveal mt-4 mb-7 max-w-xl text-term-fg leading-relaxed font-sans text-base"
+            style={revealStyle(T_SUMMARY)}
+          >
+            Software engineering graduate from Western University who takes
+            production systems end to end, from requirements through
+            deployment. TypeScript, React/Next.js, and Node.js/Express — with
+            two systems in daily use today.
+          </p>
+
+          <div className="boot-reveal" style={revealStyle(T_FINAL)}>
+            <p>
+              <Prompt />
+              <span className="caret" />
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-5">
+              <a
+                href="#projects"
+                className="border border-term-dim px-5 py-3 text-finlayGreen hover:bg-finlayGreen hover:text-term-bg transition-colors duration-150 text-center"
+              >
+                [ view work ]
+              </a>
+              <a
+                href="#contact"
+                className="border border-term-dim px-5 py-3 text-finlayGreen hover:bg-finlayGreen hover:text-term-bg transition-colors duration-150 text-center"
+              >
+                [ contact ]
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: the photo, printed as if whoami produced it */}
+        <div className="md:w-2/5 flex justify-center md:justify-end">
           <img
             src="/images/profile.jpg"
             alt="Finlay Cooper"
-            className="w-72 h-92 md:w-106 md:h-136 object-cover object-center rounded-xl shadow-lg"
+            className="boot-reveal w-64 sm:w-72 md:w-full md:max-w-sm object-cover border border-term-dim"
+            style={revealStyle(T_IDENTITY)}
           />
-        </motion.div>
+        </div>
       </div>
-      {/* Absolute Scroll Arrow at bottom */}
-      <a href="#tech-stack" aria-label="Scroll to Tech Stack" className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <svg className="w-8 h-8 text-finlayGreen animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+
+      <a
+        href="#tech-stack"
+        aria-label="Scroll to tech stack"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-finlayGreen text-xs"
+      >
+        <span className="blink">▼</span>
       </a>
     </section>
   );
 };
 
-export default Hero; 
+export default Hero;
