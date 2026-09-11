@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valleyanna Drive flood survey</title>
+<meta name="description" content="A short survey of flooding history on Valleyanna Drive.">
+<meta name="robots" content="noindex">
+
+<style>
+  /* ---------- tokens ---------- */
+  :root {
+    --paper:      #eaeeed;
+    --card:       #ffffff;
+    --ink:        #12313a;
+    --ink-soft:   #526b73;
+    --water:      #1d6f80;
+    --water-deep: #16545f;
+    --water-pale: #dbeaed;
+    --line:       #ccd7d6;
+    --warn:       #8a3324;
+    --warn-pale:  #f8e8e4;
+
+    --serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+    --sans:  system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+    --step-0: 1.125rem;   /* 18px floor. Deliberate: this street skews old. */
+    --step-1: 1.35rem;
+    --step-2: 1.7rem;
+    --step-3: 2.35rem;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    padding: 0 1.25rem 5rem;
+    background: var(--paper);
+    color: var(--ink);
+    font: var(--step-0)/1.6 var(--sans);
+  }
+
+  .wrap { max-width: 44rem; margin: 0 auto; }
+
+  /* ---------- masthead ---------- */
+  .masthead { padding: 3rem 0 0; }
+
+  .masthead h1 {
+    font: 400 var(--step-3)/1.15 var(--serif);
+    margin: 0 0 .5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .standfirst {
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    margin: 0 0 1.5rem;
+    max-width: 32ch;
+  }
+
+  /* The waterline: the only ornament on the page, and it earns its place
+     by being the subject itself. */
+  .waterline {
+    height: 6px;
+    background: linear-gradient(90deg,
+      var(--water-pale) 0%, var(--water) 45%, var(--water-deep) 100%);
+    border-radius: 3px;
+    margin-bottom: 2rem;
+  }
+
+  .preamble {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .preamble p { margin: 0 0 .75rem; }
+  .preamble p:last-child { margin-bottom: 0; }
+  .preamble strong { font-weight: 600; }
+
+  /* ---------- questions ---------- */
+  fieldset { border: 0; margin: 0 0 2.75rem; padding: 0; }
+
+  legend, .qtitle {
+    font: 600 var(--step-1)/1.35 var(--sans);
+    padding: 0;
+    margin-bottom: .35rem;
+    display: block;
+  }
+
+  .hint {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin: 0 0 1rem;
+    max-width: 54ch;
+  }
+
+  /* ---------- text inputs ---------- */
+  input[type="text"], textarea, select {
+    font: var(--step-0)/1.5 var(--sans);
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: .7rem .85rem;
+  }
+
+  input[type="text"] { width: 100%; max-width: 12rem; }
+  textarea { width: 100%; min-height: 6.5rem; resize: vertical; }
+
+  input[type="text"]:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 3px solid var(--water);
+    outline-offset: 1px;
+    border-color: var(--water);
+  }
+
+  /* ---------- the counter ---------- */
+  .counter {
+    display: flex;
+    align-items: stretch;
+    gap: .5rem;
+    max-width: 20rem;
+  }
+
+  .counter button {
+    flex: none;
+    width: 4rem;
+    font: 400 2rem/1 var(--sans);
+    color: var(--water-deep);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .counter button:hover {
+    background: var(--water-pale);
+    border-color: var(--water);
+  }
+
+  .counter button:focus-visible {
+    outline: 3px solid var(--water);
+    outline-offset: 2px;
+  }
+
+  .counter button[disabled] {
+    opacity: .35;
+    cursor: default;
+    background: var(--card);
+    border-color: var(--line);
+  }
+
+  .counter input {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    font: 400 var(--step-2)/1 var(--serif);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: .9rem .25rem;
+    -moz-appearance: textfield;
+  }
+
+  .counter input::-webkit-outer-spin-button,
+  .counter input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .counter input:focus-visible {
+    outline: 3px solid var(--water);
+    outline-offset: 1px;
+    border-color: var(--water);
+  }
+
+  /* ---------- generated flood rows ---------- */
+  .flood {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--water);
+    border-radius: 0 4px 4px 0;
+    padding: 1rem 1.25rem 1.15rem;
+    margin-bottom: .65rem;
+  }
+
+  .flood h3 {
+    font: 600 1rem/1.4 var(--sans);
+    color: var(--ink-soft);
+    margin: 0 0 .6rem;
+  }
+
+  .flood-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .5rem;
+  }
+
+  .flood select { width: 100%; }
+
+  .flood.missing {
+    border-left-color: var(--warn);
+    background: var(--warn-pale);
+  }
+
+  .manyfloods {
+    background: var(--water-pale);
+    border-radius: 4px;
+    padding: .85rem 1.1rem;
+    margin: 0 0 1rem;
+    font-size: 1rem;
+  }
+
+  /* ---------- radio + checkbox rows ---------- */
+  .choice {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: .85rem 1rem;
+    margin-bottom: .5rem;
+    cursor: pointer;
+  }
+
+  .choice:hover { border-color: var(--water); }
+
+  .choice input {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin: .1rem 0 0;
+    accent-color: var(--water);
+    flex: none;
+  }
+
+  .choice input:focus-visible {
+    outline: 3px solid var(--water);
+    outline-offset: 2px;
+  }
+
+  .choice:has(input:checked) {
+    border-color: var(--water);
+    background: var(--water-pale);
+  }
+
+  /* ---------- conditional reveal ---------- */
+  [hidden] { display: none !important; }
+
+  .reveal { animation: settle .35s ease-out; }
+
+  @keyframes settle {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; }
+    * { transition: none !important; }
+  }
+
+  /* ---------- errors ---------- */
+  .error {
+    color: var(--warn);
+    background: var(--warn-pale);
+    border-left: 4px solid var(--warn);
+    padding: .6rem .85rem;
+    border-radius: 0 4px 4px 0;
+    margin: .6rem 0 0;
+    font-size: 1rem;
+  }
+
+  /* ---------- submit ---------- */
+  .actions { border-top: 1px solid var(--line); padding-top: 2rem; }
+
+  .actions button {
+    font: 600 var(--step-1)/1 var(--sans);
+    color: #fff;
+    background: var(--water-deep);
+    border: 0;
+    border-radius: 4px;
+    padding: 1.1rem 2.25rem;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .actions button:hover { background: var(--water); }
+
+  .actions button:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  .actions button[disabled] { opacity: .55; cursor: wait; }
+
+  /* ---------- done state ---------- */
+  .done {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-top: 6px solid var(--water);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    margin-top: 3rem;
+  }
+
+  .done h2 { font: 400 var(--step-2)/1.25 var(--serif); margin: 0 0 .75rem; }
+  .done p { margin: 0 0 .75rem; }
+  .done p:last-child { margin-bottom: 0; }
+
+  /* honeypot */
+  .nectar {
+    position: absolute;
+    left: -9999px;
+    width: 1px; height: 1px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 34rem) {
+    body { padding: 0 1rem 4rem; }
+    .masthead { padding-top: 2rem; }
+    .flood-fields { grid-template-columns: 1fr; }
+    .counter { max-width: none; }
+  }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1>Flooding on Valleyanna Drive</h1>
+    <p class="standfirst">A short survey of what has happened to our houses over the last 25 years.</p>
+    <div class="waterline" role="presentation"></div>
+  </header>
+
+  <div class="preamble">
+    <p>This takes about three minutes. You will be asked roughly when each flood happened, and month and year is all we need. Nobody remembers the exact day, so a rough guess is genuinely fine.</p>
+    <p>Answers are only ever shared as street-wide totals, never with your house number attached.</p>
+    <p><strong>Would rather do this at the kitchen table?</strong> Call me on <a href="tel:+16479632667">647-963-2667</a> and I will come by and fill it in with you.</p>
+  </div>
+
+  <noscript>
+    <div class="error">This form needs JavaScript switched on. If that is not something you can change, please call me on <a href="tel:+16479632667">647-963-2667</a> and we will do it over the phone.</div>
+  </noscript>
+
+  <form id="survey" novalidate>
+
+    <!-- house number -->
+    <fieldset>
+      <label class="qtitle" for="house">What is your house number?</label>
+      <p class="hint">Just the number, so we do not count the same house twice.</p>
+      <input type="text" id="house" name="house" inputmode="numeric" autocomplete="off">
+      <div class="error" id="err-house" hidden></div>
+    </fieldset>
+
+    <!-- the count -->
+    <fieldset>
+      <label class="qtitle" for="count">How many times has your house flooded in the last 25 years?</label>
+      <p class="hint">Any water where it should not be counts: basement, crawlspace, garage, ground floor. Use the buttons, or type the number straight in.</p>
+
+      <div class="counter">
+        <button type="button" id="minus" aria-label="One fewer flood">&minus;</button>
+        <input type="number" id="count" inputmode="numeric" min="0" max="50" step="1" value="0"
+               aria-describedby="countWord">
+        <button type="button" id="plus" aria-label="One more flood">+</button>
+      </div>
+
+      <p class="hint" id="countWord" aria-live="polite" style="margin-top:.6rem">It has never flooded.</p>
+      <div class="error" id="err-count" hidden></div>
+    </fieldset>
+
+    <!-- ===== conditional: appears once the count is 1 or more ===== -->
+    <div id="floodBlock" hidden>
+
+      <fieldset>
+        <legend id="datesLegend">When did they happen?</legend>
+        <p class="hint">Month and year for each one. If you cannot pin one down, there is an "I don't remember" option in both dropdowns.</p>
+
+        <div class="manyfloods" id="manyFloods" hidden>
+          That is a lot of flooding. If listing them one by one is not realistic, put your best summary in the box at the bottom of this section instead and leave the dropdowns on "I don't remember".
+        </div>
+
+        <div id="floodRows"></div>
+        <div class="error" id="err-dates" hidden></div>
+      </fieldset>
+
+      <fieldset>
+        <label class="qtitle" for="dateNotes">Anything about the dates you want to add?</label>
+        <p class="hint">Optional. For example "it floods most heavy rains since 2015".</p>
+        <textarea id="dateNotes" name="dateNotes"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>What kind of flooding was it?</legend>
+        <p class="hint">Tick everything that applies.</p>
+
+        <label class="choice"><input type="checkbox" name="kind" value="Sewer backup"><span>Sewer backup, coming up through floor drains or toilets</span></label>
+        <label class="choice"><input type="checkbox" name="kind" value="Through windows or walls"><span>Water coming in through windows, doors, or walls</span></label>
+        <label class="choice"><input type="checkbox" name="kind" value="Seepage through floor"><span>Seepage up through the basement floor or foundation</span></label>
+        <label class="choice"><input type="checkbox" name="kind" value="Pooling on property"><span>Water pooling on the property but not getting into the house</span></label>
+        <label class="choice"><input type="checkbox" name="kind" value="Not sure"><span>Not sure</span></label>
+
+        <div class="error" id="err-kind" hidden></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Did you make an insurance claim for any of it?</legend>
+
+        <label class="choice"><input type="radio" name="claim" value="Paid"><span>Yes, and it was paid</span></label>
+        <label class="choice"><input type="radio" name="claim" value="Denied"><span>Yes, but it was denied</span></label>
+        <label class="choice"><input type="radio" name="claim" value="No"><span>No</span></label>
+        <label class="choice"><input type="radio" name="claim" value="Don't remember"><span>I don't remember</span></label>
+
+        <div class="error" id="err-claim" hidden></div>
+      </fieldset>
+
+    </div>
+    <!-- ===== end conditional ===== -->
+
+    <!-- everyone answers these, flooded or not -->
+    <fieldset>
+      <legend>Does your house have any of these?</legend>
+      <p class="hint">This is how we find out which protections actually made a difference on our street, so it matters even if you have never had a drop of water.</p>
+
+      <label class="choice"><input type="checkbox" name="protection" value="Backwater valve"><span>Backwater valve</span></label>
+      <label class="choice"><input type="checkbox" name="protection" value="Sump pump"><span>Sump pump</span></label>
+      <label class="choice"><input type="checkbox" name="protection" value="Neither"><span>Neither</span></label>
+      <label class="choice"><input type="checkbox" name="protection" value="Not sure"><span>Not sure</span></label>
+
+      <div class="error" id="err-protection" hidden></div>
+    </fieldset>
+
+    <fieldset>
+      <label class="qtitle" for="comments">Anything else worth knowing?</label>
+      <p class="hint">Optional. Damage, costs, what the city told you, anything at all.</p>
+      <textarea id="comments" name="comments"></textarea>
+    </fieldset>
+
+    <!-- spam trap, hidden from people and screen readers -->
+    <div class="nectar" aria-hidden="true">
+      <label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+    </div>
+
+    <div class="actions">
+      <button type="submit" id="submitBtn">Send my answers</button>
+      <div class="error" id="err-submit" hidden></div>
+    </div>
+
+  </form>
+
+  <div class="done" id="done" hidden tabindex="-1">
+    <h2>Thank you, that is in.</h2>
+    <p>Your answers have been recorded.</p>
+    <p>Once enough of the street has replied I will drop a summary of the results in everyone's mailbox. If you think of something you left out, just call me on <a href="tel:+16479632667">647-963-2667</a>.</p>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------------- settings ---------------- */
+
+  // Where submissions go: src/app/api/valleyanna-survey/route.ts, which writes
+  // each response to the Google Sheet and emails a copy.
+  var ENDPOINT = '/api/valleyanna-survey';
+
+  var FIRST_YEAR = 2001;
+  var LAST_YEAR  = 2026;
+  var MAX_FLOODS = 50;
+  var MANY       = 12;    // above this, suggest the summary box instead
+
+  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+
+  var UNKNOWN = "I don't remember";
+
+  /* ---------------- elements ---------------- */
+
+  var form       = document.getElementById('survey');
+  var countInput = document.getElementById('count');
+  var minusBtn   = document.getElementById('minus');
+  var plusBtn    = document.getElementById('plus');
+  var countWord  = document.getElementById('countWord');
+  var floodBlock = document.getElementById('floodBlock');
+  var floodRows  = document.getElementById('floodRows');
+  var manyFloods = document.getElementById('manyFloods');
+  var legend     = document.getElementById('datesLegend');
+
+  // Answers live here, not in the DOM. Changing the count rebuilds the rows,
+  // and without this anything already typed would be wiped every time.
+  var floods = [];
+
+  /* ---------------- building one flood row ---------------- */
+
+  function makeSelect(id, label, options, chosen) {
+    var sel = document.createElement('select');
+    sel.id = id;
+    sel.setAttribute('aria-label', label);
+
+    var blank = document.createElement('option');
+    blank.value = '';
+    blank.textContent = label;
+    sel.appendChild(blank);
+
+    for (var i = 0; i < options.length; i++) {
+      var opt = document.createElement('option');
+      opt.value = options[i];
+      opt.textContent = options[i];
+      if (options[i] === chosen) opt.selected = true;
+      sel.appendChild(opt);
+    }
+
+    var dunno = document.createElement('option');
+    dunno.value = UNKNOWN;
+    dunno.textContent = UNKNOWN;
+    if (chosen === UNKNOWN) dunno.selected = true;
+    sel.appendChild(dunno);
+
+    return sel;
+  }
+
+  function years() {
+    var out = [];
+    for (var y = LAST_YEAR; y >= FIRST_YEAR; y--) out.push(String(y));
+    return out;
+  }
+
+  function buildRow(index) {
+    var data = floods[index] || { month: '', year: '' };
+
+    var box = document.createElement('div');
+    box.className = 'flood';
+    box.id = 'flood-' + index;
+
+    var head = document.createElement('h3');
+    head.textContent = 'Flood ' + (index + 1);
+    box.appendChild(head);
+
+    var fields = document.createElement('div');
+    fields.className = 'flood-fields';
+
+    var m = makeSelect('month-' + index, 'Month', MONTHS, data.month);
+    var y = makeSelect('year-' + index, 'Year', years(), data.year);
+
+    m.addEventListener('change', function () {
+      floods[index].month = m.value;
+      box.classList.remove('missing');
+    });
+
+    y.addEventListener('change', function () {
+      floods[index].year = y.value;
+      box.classList.remove('missing');
+    });
+
+    fields.appendChild(m);
+    fields.appendChild(y);
+    box.appendChild(fields);
+
+    return box;
+  }
+
+  /* ---------------- reacting to the count ---------------- */
+
+  function render(n) {
+    // Grow or shrink the model, keeping whatever is already filled in.
+    while (floods.length < n) floods.push({ month: '', year: '' });
+    if (floods.length > n) floods.length = n;
+
+    floodRows.innerHTML = '';
+    for (var i = 0; i < n; i++) floodRows.appendChild(buildRow(i));
+
+    var had = !floodBlock.hidden;
+    floodBlock.hidden = n === 0;
+
+    // Disabled inputs are skipped by validation and left out of the payload,
+    // so a hidden section can never quietly submit stale answers.
+    var inputs = floodBlock.querySelectorAll('input, textarea, select');
+    for (var j = 0; j < inputs.length; j++) inputs[j].disabled = (n === 0);
+
+    if (n > 0 && !had) {
+      floodBlock.classList.remove('reveal');
+      void floodBlock.offsetWidth;   // restart the animation
+      floodBlock.classList.add('reveal');
+    }
+
+    legend.textContent = n === 1 ? 'When did it happen?' : 'When did they happen?';
+    manyFloods.hidden = n < MANY;
+
+    countWord.textContent =
+      n === 0 ? 'It has never flooded.' :
+      n === 1 ? 'One flood. One set of dates below.' :
+                n + ' floods. ' + n + ' sets of dates below.';
+
+    minusBtn.disabled = n <= 0;
+    plusBtn.disabled  = n >= MAX_FLOODS;
+
+    clearError('err-count');
+  }
+
+  function currentCount() {
+    var n = parseInt(countInput.value, 10);
+    if (isNaN(n) || n < 0) n = 0;
+    if (n > MAX_FLOODS) n = MAX_FLOODS;
+    return n;
+  }
+
+  function setCount(n) {
+    if (n < 0) n = 0;
+    if (n > MAX_FLOODS) n = MAX_FLOODS;
+    countInput.value = n;
+    render(n);
+  }
+
+  minusBtn.addEventListener('click', function () { setCount(currentCount() - 1); });
+  plusBtn.addEventListener('click',  function () { setCount(currentCount() + 1); });
+
+  // Typing straight into the box works too. Rebuild on the way out rather
+  // than on every keystroke, so half-typed numbers don't churn the rows.
+  countInput.addEventListener('change', function () { setCount(currentCount()); });
+  countInput.addEventListener('blur',   function () { setCount(currentCount()); });
+
+  /* ---------------- protections: exclusive options ---------------- */
+
+  form.addEventListener('change', function (e) {
+    if (e.target.name !== 'protection') return;
+
+    var box = e.target;
+    var exclusive = ['Neither', 'Not sure'];
+    var all = form.querySelectorAll('input[name="protection"]');
+    var i;
+
+    if (box.checked && exclusive.indexOf(box.value) !== -1) {
+      for (i = 0; i < all.length; i++) if (all[i] !== box) all[i].checked = false;
+    } else if (box.checked) {
+      for (i = 0; i < all.length; i++) {
+        if (exclusive.indexOf(all[i].value) !== -1) all[i].checked = false;
+      }
+    }
+  });
+
+  /* ---------------- validation ---------------- */
+
+  function showError(id, message) {
+    var el = document.getElementById(id);
+    el.textContent = message;
+    el.hidden = false;
+  }
+
+  function clearError(id) {
+    var el = document.getElementById(id);
+    el.hidden = true;
+    el.textContent = '';
+  }
+
+  function anyChecked(name) {
+    return form.querySelectorAll('input[name="' + name + '"]:checked').length > 0;
+  }
+
+  function validate() {
+    ['err-house', 'err-count', 'err-dates', 'err-kind', 'err-claim',
+     'err-protection', 'err-submit'].forEach(clearError);
+
+    var problems = [];
+    var house = document.getElementById('house');
+
+    if (!house.value.trim()) {
+      showError('err-house', 'Please put in your house number.');
+      problems.push(house);
+    }
+
+    var n = currentCount();
+
+    if (n > 0) {
+      var incomplete = [];
+
+      for (var i = 0; i < n; i++) {
+        var row = document.getElementById('flood-' + i);
+        row.classList.remove('missing');
+
+        if (!floods[i].month || !floods[i].year) {
+          row.classList.add('missing');
+          incomplete.push(i + 1);
+        }
+      }
+
+      if (incomplete.length) {
+        showError('err-dates',
+          incomplete.length === 1
+            ? 'Flood ' + incomplete[0] + ' is missing a month or a year. Pick "I don\'t remember" if that is the honest answer.'
+            : 'These are missing a month or a year: ' + incomplete.join(', ') + '. Pick "I don\'t remember" where that is the honest answer.');
+        problems.push(document.getElementById('month-' + (incomplete[0] - 1)));
+      }
+
+      if (!anyChecked('kind')) {
+        showError('err-kind', 'Please tick at least one, or choose "Not sure".');
+        problems.push(form.querySelector('input[name="kind"]'));
+      }
+
+      if (!anyChecked('claim')) {
+        showError('err-claim', 'Please pick one.');
+        problems.push(form.querySelector('input[name="claim"]'));
+      }
+    }
+
+    if (!anyChecked('protection')) {
+      showError('err-protection', 'Please tick at least one, or choose "Not sure".');
+      problems.push(form.querySelector('input[name="protection"]'));
+    }
+
+    return problems;
+  }
+
+  /* ---------------- payload ---------------- */
+
+  function values(name) {
+    var out = [];
+    var found = form.querySelectorAll('input[name="' + name + '"]:checked');
+    for (var i = 0; i < found.length; i++) out.push(found[i].value);
+    return out;
+  }
+
+  function single(name) {
+    var found = form.querySelector('input[name="' + name + '"]:checked');
+    return found ? found.value : '';
+  }
+
+  function describe(f) {
+    var noMonth = !f.month || f.month === UNKNOWN;
+    var noYear  = !f.year  || f.year  === UNKNOWN;
+
+    if (noMonth && noYear) return 'date not remembered';
+    if (noYear)  return f.month + ', year not remembered';
+    if (noMonth) return 'sometime in ' + f.year;
+    return f.month + ' ' + f.year;
+  }
+
+  function buildPayload() {
+    var n = currentCount();
+    var list = [];
+
+    for (var i = 0; i < n; i++) list.push(describe(floods[i]));
+
+    return {
+      house:       document.getElementById('house').value.trim(),
+      floodCount:  n,
+      floods:      list.join('; '),
+      dateNotes:   n ? document.getElementById('dateNotes').value.trim() : '',
+      kind:        values('kind').join(', '),
+      claim:       single('claim'),
+      protection:  values('protection').join(', '),
+      comments:    document.getElementById('comments').value.trim(),
+      submittedAt: new Date().toISOString()
+    };
+  }
+
+  /* ---------------- submit ---------------- */
+
+  var btn  = document.getElementById('submitBtn');
+  var done = document.getElementById('done');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Spam trap. Bots fill every field they find; people never see this one.
+    if (form.querySelector('input[name="website"]').value) return;
+
+    var problems = validate();
+
+    if (problems.length) {
+      problems[0].focus();
+      problems[0].scrollIntoView({ block: 'center', behavior: 'smooth' });
+      return;
+    }
+
+    var payload = buildPayload();
+
+    if (!ENDPOINT) {
+      console.log('No ENDPOINT set. Payload would have been:', payload);
+      showError('err-submit', 'This form has no destination configured yet, so nothing was sent. The answers are in the browser console.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function (res) {
+      if (!res.ok) throw new Error('Status ' + res.status);
+      form.hidden = true;
+      done.hidden = false;
+      done.focus();
+      done.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    })
+    .catch(function (err) {
+      console.error(err);
+      btn.disabled = false;
+      btn.textContent = 'Send my answers';
+      showError('err-submit', 'That did not go through. Please try once more, and if it still will not send, call me on 647-963-2667 and I will take it down over the phone.');
+    });
+  });
+
+  render(0);
+})();
+</script>
+</body>
+</html>
