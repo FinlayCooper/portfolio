@@ -10,7 +10,8 @@ interface ExperienceItem {
     location: string;
     period: string;
     description: string[];
-    technologies: string[];
+    /** Short stack line shown next to the role name. */
+    stack?: string;
     companyLogo: string;
     companyUrl?: string;
     screenshot: string;
@@ -26,15 +27,15 @@ const experiences: ExperienceItem[] = [
         period: "Summer 2025",
         live: true,
         description: [
-            "Owned the platform end to end as its only engineer, from requirements through architecture, build, and release — digitization cut compliance reporting time 75% across 3 plants, with 15% more from refactoring",
-            "Drove scoping directly with plant operations managers at each site, translating floor processes and regulatory requirements into system design, then shipped iterative releases into daily production use",
-            "Consolidated a legacy .NET web app and a separate MAUI mobile app into a single React Native codebase shipping to iOS, Android, and web",
-            "Engineered a schema-driven backend factory (Node.js) that auto-generates CRUD controllers, RESTful routes, and validation from a single declaration — collapsing 100+ hand-written files into 3",
-            "Integrated Microsoft Graph API + Azure AD (OAuth 2.0 / OpenID Connect) to automate SharePoint document delivery with token caching, refresh, retries, and exponential backoff",
-            "Migrated all production data to a redesigned normalized relational schema after resolving structural mismatches from the original denormalized database",
-            "Built 10 PDF reporting services (JSReport, Handlebars, digital signatures, multi-photo support) on a four-state approval workflow, replacing paper-based compliance across 8 categories"
+            "Sole engineer on a compliance platform now live at all 3 of BroadGrain's Canadian plants, cutting compliance reporting time 75% (plus 15% more from refactoring)",
+            "Scoped directly with plant managers at each site and shipped iterative releases into daily production use",
+            "Built with parallel AI agents working from project context files and schemas defined up front, with every change reviewed before release",
+            "Designed a schema-driven backend factory that generates controllers, routes, and validation from one declaration, collapsing 100+ hand-written files into 3",
+            "Merged a legacy .NET web app and a separate MAUI mobile app into one React Native app for iOS, Android, and web",
+            "Migrated all production data to a normalized schema, using MCP tooling to derive the new schema and map the legacy data",
+            "Replaced paper across 8 compliance categories with 10 PDF reports on a four-state approval workflow, auto-delivered to SharePoint via Microsoft Graph"
         ],
-        technologies: ["TypeScript", "React", "React Native", "Expo", "Node.js", "Express", "MySQL", "SharePoint", "IIS", "pm2", "Docker"],
+        stack: "TypeScript · React Native · Node.js · Express · MySQL · Azure",
         companyLogo: "/images/broadgrain-logo.png",
         companyUrl: "https://www.broadgrain.com",
         screenshot: "/images/broadgrain-screenshot.png"
@@ -46,29 +47,33 @@ const experiences: ExperienceItem[] = [
         period: "June 2026",
         live: true,
         description: [
-            "Delivered a production-grade restaurant website with dynamic theming, fluid clamp() typography, and data-driven menu rendering — managed the full client lifecycle from design to deployment",
-            "Integrated Toast POS ordering alongside UberEats and DoorDash, enabling commission-free direct orders through a unified receipt-style UI",
-            "Designed a retro 80s brand identity with custom typography, mobile-first layout, and SEO optimization"
+            "Designed, built, and launched soiram.ca, from brand identity to deployment",
+            "Shipped design changes live on calls with the client using AI agents, building her vision in real time instead of trading mockups",
+            "Integrated Toast POS direct ordering alongside UberEats and DoorDash, so the restaurant keeps the commission on direct orders",
+            "Built a retro 80s brand, data-driven menu, dynamic theming, and a mobile-first, SEO-optimized layout"
         ],
-        technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Toast POS", "SEO"],
+        stack: "Next.js · TypeScript · Tailwind · Toast POS",
         companyLogo: "/images/soi-ram-logo.png",
         companyUrl: "https://soiram.ca",
         screenshot: "/images/soi-ram.jpg"
     },
     {
-        title: "Software Engineering Capstone — GTA Management System",
+        title: "Technical Lead — GTA Management System",
         company: "Western University",
         location: "London, ON",
         period: "2025 - 2026",
         live: true,
         description: [
-            "Built and deployed a full-stack platform replacing spreadsheet-based GTA hiring at Western Engineering — now in active department-wide use across 100+ TAs, professors, and committee members",
-            "Owned the entire server side: relational schema design, the Prisma data layer, and the full Express REST API — 78 endpoints across 14 modules with JWT auth, role- and ownership-based authorization, and Zod validation",
-            "Designed the configurable matching engine that replaced manual allocation — scoring every student–course pair on skill match, stated preference, review ratings, and course history, then packing TA hours at the slot level across 4 seniority-based waves with cross-term consistency for full-year courses",
-            "Implemented non-destructive dry-run assignment, letting the committee preview results, tune weights, and re-run without overwriting human-approved decisions, plus drag-and-drop manual reassignment",
-            "Built the front end's reusable, fully-typed Axios data-access layer and generic CRUD components shared across 6+ committee screens, plus a browser-side PDF syllabus importer that fuzzy-matches extracted topics against the skills catalog"
+            "Led a 4-person capstone team building the platform that replaced spreadsheet TA hiring in Western's ECE department, now used by 100+ TAs, professors, and committee members",
+            "Designed and built the matching algorithm: it scores every student-course pair on skill, preference, reviews, and course history, then fills TA hours slot by slot in waves, with full-year course support",
+            "Set the architecture and rebuilt the backend in 3 days with AI agents: 59 files covering auth, validation, error handling, and 14 API modules (now 107 endpoints)",
+            "Locked down every module with JWT auth, role- and ownership-based access control, and Zod validation",
+            "Wrote the three-role integration harness that exercises every endpoint as a student, professor, and committee member, and gates each change",
+            "Built dry-run matching so the committee previews results and tunes weights without ever touching approved assignments",
+            "Built the typed API client, reusable dashboard and CRUD components, and the drag-and-drop matching board with a searchable student sidebar",
+            "Deployed the server to Railway and the client to Netlify, and wrote the API, authorization, and component docs the rest of the team built on"
         ],
-        technologies: ["Next.js", "TypeScript", "Node.js", "Express", "Prisma", "MySQL", "Zod", "REST API"],
+        stack: "Next.js · TypeScript · Express · Prisma · MySQL",
         companyLogo: "/images/western-engineering-logo.jpg",
         companyUrl: "",
         screenshot: "/images/western-engineering-screenshot.png"
@@ -84,7 +89,6 @@ const experiences: ExperienceItem[] = [
             "Mentored groups of 8-12 children, fostering teamwork and creating a supportive environment",
             "Spoke French to ESL campers"
         ],
-        technologies: ["Leadership","Adaptability","Working in Teams","Time Management"],
         companyLogo: "/images/ymca-logo.png",
         companyUrl: "https://www.ymcagta.org/toronto-island",
         screenshot: "/images/ymca-screenshot.png"
@@ -99,7 +103,6 @@ const experiences: ExperienceItem[] = [
             "Assisted with marketing efforts by creating and distributing promotional material to expand client reach",
             "Trained new employees on detailing techniques and operational procedures"
         ],
-        technologies: ["Attention to Detail", "Customer Service", "Employee Training"],
         companyLogo: "/images/three-lakes-logo.png",
         companyUrl: "https://3lake.ca",
         screenshot: "/images/three-lakes-screenshot.png"
@@ -189,6 +192,9 @@ const Experience = () => {
             <span className="text-term-dim">·</span>
             <p className="font-mono text-sm text-term-muted">{experience.location}</p>
             </div>
+            {experience.stack && (
+                <p className="font-mono text-xs text-term-muted mt-1">{experience.stack}</p>
+            )}
             </div>
             </div>
 
@@ -197,7 +203,7 @@ const Experience = () => {
             {experience.live && <LiveBadge />}
             </div>
 
-            <ul className="space-y-2 mb-5">
+            <ul className="space-y-2">
             {experience.description.map((item, i) => (
                 <li key={i} className="flex gap-2 text-sm text-term-fg leading-relaxed">
                 <span aria-hidden="true" className="font-mono text-term-dim select-none shrink-0">–</span>
@@ -205,16 +211,6 @@ const Experience = () => {
                 </li>
             ))}
             </ul>
-            <div className="flex flex-wrap gap-2">
-            {experience.technologies.map((tech, i) => (
-                <span
-                key={i}
-                className="px-2 py-0.5 font-mono text-xs text-finlayGreen border border-term-dim"
-                >
-                {tech}
-                </span>
-            ))}
-            </div>
             </div>
             {experience.screenshot && (
                 experience.companyUrl ? (

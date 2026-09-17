@@ -7,8 +7,8 @@ import TerminalHeading from '@/components/ui/TerminalHeading';
 
 const highlights = [
   "Software Engineering graduate from Western University (Dean's Honour List)",
-  'Experience in full-stack development, cross-platform apps, and cloud deployment',
-  'TypeScript, React/Next.js, and Node.js/Express, with production React Native, MySQL/PostgreSQL, and Unity/C#',
+  "Sole engineer on a compliance platform running at all 3 of BroadGrain's Canadian plants",
+  'Builds with AI agents by default: architecture, schemas, and tests first',
   'Bilingual — English (native), French (fluent)',
   'Passionate about hockey, football, chess, weightlifting, and game development',
 ];
@@ -91,7 +91,7 @@ const About = () => {
                 I&apos;ve worked on are in daily use right now: a plant
                 compliance platform I built as the only engineer at BroadGrain
                 Commodities, and the TA-matching platform running in
-                Western&apos;s ECE department.
+                Western&apos;s ECE department, where I was technical lead.
               </p>
               <p>
                 That internship reinforced what I care most about in software
@@ -101,13 +101,14 @@ const About = () => {
                 than forcing people to adapt to technology.
               </p>
               <p>
-                I&apos;ve built my technical foundation through coursework in
-                Algorithms, Operating Systems, Databases, and Web Technologies.
-                From a capstone platform deployed department-wide to freelance
-                client work to a full roguelike built from scratch, I take
-                projects through the full lifecycle — concept, development, and
-                deployment — with a focus on shipping software people actually
-                use.
+                I build with AI agents by default. I own the architecture, the
+                schemas, and the tests; agents do the implementation against
+                them. That&apos;s how one engineer ships what normally takes a
+                team, and the{' '}
+                <a href="#workflow" className="text-finlayGreen hover:text-term-amber transition-colors">
+                  workflow section
+                </a>{' '}
+                shows exactly how.
               </p>
             </div>
           </div>

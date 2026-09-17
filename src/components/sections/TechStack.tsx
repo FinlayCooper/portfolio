@@ -141,19 +141,8 @@ const TechStack = () => {
 
   return (
     <>
-      <section id="tech-stack" className="py-16">
+      <section id="tech-stack" aria-label="Tools I work with" className="py-10">
         <div className="container mx-auto px-4">
-          <p className="font-mono text-xs sm:text-sm mb-3">
-            <span className="text-term-dim">finlay@portfolio</span>
-            <span className="text-term-muted">:</span>
-            <span className="text-term-dim">~</span>
-            <span className="text-term-muted">$ </span>
-            <span className="text-finlayGreen">which -a *</span>
-          </p>
-          <h2 className="font-mono text-2xl sm:text-3xl font-bold text-finlayGreen mb-2">
-            Tech Stack
-          </h2>
-          <div className="term-rule mb-8" />
           <div 
             ref={containerRef}
             className="relative w-full overflow-x-auto overflow-y-hidden cursor-grab active:cursor-grabbing no-scrollbar"

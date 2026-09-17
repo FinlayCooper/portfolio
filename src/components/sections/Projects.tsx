@@ -7,7 +7,7 @@ interface ProjectItem {
   title: string;
   period: string;
   description: string[];
-  technologies: string[];
+  stack?: string;
   links?: {
     demo?: string;
     github?: string;
@@ -22,12 +22,13 @@ const projects: ProjectItem[] = [
     title: "Fracture Protocol - Roguelike Arena Shooter",
     period: "April 2026",
     description: [
-      "Top-down roguelike arena shooter in Unity/C# — 3 boss encounters, 12 elite enemy types, and a 32-modifier progression system with rarity tiers and diminishing returns",
-      "Coroutine-driven boss AI with concurrent behaviors (fire patterns, drone phases, respawn timers), phase transitions at 66%/33% HP, and 0.8s visual telegraphing",
-      "Modifier dispatch system using string IDs queried at runtime — dynamic effect composition across 5 rarity tiers without hardcoded branches",
-      "Serialized run state across 4 boss scenes (11 fields) for full power allocation persistence; managed Git version control in a 2-person Unity project"
+      "Two-developer roguelike built with AI agents: we had a full playable version in the first 2 days. I wrote about two-thirds of the C#",
+      "Built all 3 boss fights (the Welder, the Triad, and the Overseer) with coroutine-driven AI running concurrent attack patterns and HP-based phase transitions, plus the elite enemy roster",
+      "Designed and built 32 modifiers across 5 rarity tiers, with weighted drop tables for elite and boss rewards, per-modifier stack caps, and diminishing returns",
+      "Built room-based level progression with doors that lock behind you, hallway lore triggers, damage popups, and modifier icons with tooltips",
+      "Hardened the web build: traced a combat bug that only appeared outside the editor to Unity stripping a shader used only from code, added a build-safe shader fallback, and audited every enemy for physics-safe movement to stop wall clipping"
     ],
-    technologies: ["Unity", "C#", "Game Design", "Roguelike", "AI Systems", "Git"],
+    stack: "Unity · C#",
     links: {},
     image: "/images/fracture-protocol.jpg"
   },
@@ -35,12 +36,12 @@ const projects: ProjectItem[] = [
     title: "CloudCopier - Cross-Device Clipboard Sync",
     period: "2024 - 2025",
     description: [
-      "Cross-platform clipboard sync (Windows–iOS): C# Windows client, Node.js server (API keys, Docker), and Swift/SwiftUI iOS app",
+      "Clipboard sync between Windows and iOS: a Windows client, a self-hosted sync server with API keys, and a native iOS app",
       "Supports all common file formats (text, images, docs, media, etc.), offline queuing, and secure self-hosting",
       "Format normalization, deduplication, and rate-limited polling with retries for reliable cross-platform sync",
       "Set up CI/CD for auto-builds and redeploys to a cloud platform on push"
     ],
-    technologies: ["C#", "Node.js", "Swift", "SwiftUI", "Docker", "CI/CD", "REST API"],
+    stack: "C# · Node.js · Swift · Docker",
     links: {
       github: "https://github.com/FinlayCooper/CloudCopier"
     },
@@ -50,11 +51,11 @@ const projects: ProjectItem[] = [
     title: "Quizzly - Networked Trivia Game",
     period: "2025",
     description: [
-      "Multiplayer trivia game built in C++ with a Qt desktop GUI",
+      "Multiplayer trivia game with a desktop GUI",
       "Client–server architecture over sockets for real-time multiplayer quiz sessions and synchronized game state",
       "Object-oriented design covering question rounds, player connections, and scoring"
     ],
-    technologies: ["C++", "Qt", "Network Programming", "Game Development"],
+    stack: "C++ · Qt",
     links: {
       github: "https://github.com/FinlayCooper/Quizzly"
     },
@@ -84,7 +85,12 @@ const Projects = () => {
             >
               <div className="p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-mono text-base sm:text-lg font-bold text-finlayGreen leading-tight">{project.title}</h3>
+                  <div>
+                    <h3 className="font-mono text-base sm:text-lg font-bold text-finlayGreen leading-tight">{project.title}</h3>
+                    {project.stack && (
+                      <p className="font-mono text-xs text-term-muted mt-1">{project.stack}</p>
+                    )}
+                  </div>
                   <p className="font-mono text-xs text-term-muted shrink-0 ml-3">{project.period}</p>
                 </div>
                 <ul className="mb-4 space-y-1.5">
@@ -95,16 +101,6 @@ const Projects = () => {
                     </li>
                   ))}
                 </ul>
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {project.technologies.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-0.5 font-mono text-xs text-finlayGreen border border-term-dim"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
                 <div className="flex items-center space-x-3">
                   {project.links?.demo && (
                     <a

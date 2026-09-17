@@ -1,12 +1,13 @@
-\documentclass[10pt, letterpaper]{article}
+\documentclass[letterpaper]{article}
+\usepackage[fontsize=10.75pt]{scrextend}
 
 % Packages:
 \usepackage[
     ignoreheadfoot,
     top=1.25 cm,
     bottom=1.25 cm,
-    left=2 cm,
-    right=2 cm,
+    left=1.418 cm,
+    right=1.418 cm,
     footskip=1.0 cm,
 ]{geometry}
 \usepackage{titlesec}
@@ -15,7 +16,6 @@
 \usepackage[dvipsnames]{xcolor}
 \definecolor{primaryColor}{RGB}{0, 0, 0}
 \usepackage{enumitem}
-\usepackage{fontawesome5}
 \usepackage{amsmath}
 \usepackage[
     pdftitle={Finlay Cooper's Resume},
@@ -59,13 +59,13 @@
 \pagenumbering{gobble}
 
 \titleformat{\section}{\needspace{4\baselineskip}\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
-\titlespacing{\section}{-1pt}{0.1 cm}{0.2 cm}
+\titlespacing{\section}{-1pt}{0.287 cm}{0.205 cm}
 
 \renewcommand\labelitemi{$\vcenter{\hbox{\small$\bullet$}}$}
 \newenvironment{highlights}{
     \begin{itemize}[
-        topsep=0.08 cm,
-        parsep=0.06 cm,
+        topsep=0.115 cm,
+        parsep=0.106 cm,
         partopsep=0pt,
         itemsep=0pt,
         leftmargin=10pt
@@ -80,7 +80,7 @@
     \end{adjustwidth}
 }
 
-\newenvironment{twocolentry}[2][3.6cm]{%
+\newenvironment{twocolentry}[2][2.2cm]{%
     \onecolentry
     \def\secondColumn{#2}%
     \setcolumnwidth{\fill, #1}%
@@ -111,6 +111,7 @@
 
         \normalsize
         \centering
+        Toronto, ON \kern 3.0 pt • \kern 3.0 pt
         \href{mailto:finlay.cooper@rogers.com}{finlay.cooper@rogers.com} \kern 3.0 pt • \kern 3.0 pt
         \href{tel:+1-647-963-2667}{(647) 963 2667} \kern 3.0 pt • \kern 3.0 pt
         \href{https://www.linkedin.com/in/finlaycooper/}{LinkedIn} \kern 3.0 pt • \kern 3.0 pt
@@ -118,103 +119,85 @@
         \href{https://finlaycooper.ca}{Portfolio}
     \end{header}
 
-    \section{Education}
+    \newcommand{\stack}[1]{~$|$~ \mbox{\small #1}}
+    \newcommand{\sep}{~$\cdot$~}
+    \newcommand{\role}[2]{\begin{onecolentry}\mbox{#1}\hfill #2\end{onecolentry}}
 
-    \begin{twocolentry}{
-        June 2026
-    }
-        \textbf{Western University}, London ON\\
-        Bachelor of Engineering, Software Engineering ~$|$~ \textbf{Dean's Honour List}
-    \end{twocolentry}
+    \section{Summary}
+
     \begin{onecolentry}
-        \begin{highlights}
-            \item \textbf{Core Coursework:} Algorithms \& Data Structures; Operating Systems; DBMS; Networking; Web Technologies; Information Security; Machine Learning; Cloud Computing; Software Testing \& Maintenance.
-        \end{highlights}
+        Software engineer who ships production systems end to end, solo when needed. Sole engineer on a compliance platform running at all 3 of BroadGrain's Canadian plants. Builds with AI agents by default: sets the architecture, schemas, and tests, runs agents in parallel, ships what passes.
     \end{onecolentry}
 
     \section{Experience}
 
-\begin{twocolentry}{
-    Summer 2025
-}
-    \textbf{Software Developer Intern}, BroadGrain Commodities --- Toronto, ON
-\end{twocolentry}
+    \role{\textbf{Software Developer Intern}, BroadGrain Commodities \stack{TypeScript\sep React Native\sep Node.js\sep MySQL}}{Summer 2025}
+    \begin{onecolentry}
+        \begin{highlights}
+            \item Sole engineer on a compliance platform live at all 3 Canadian plants; \textbf{cut reporting time 75\%}.
+            \item Scoped with plant managers at each site and shipped iterative releases into daily production.
+            \item Built with \textbf{parallel AI agents} working from project context files and schemas defined up front.
+            \item Designed a \textbf{schema-driven backend factory}, collapsing \textbf{100+ hand-written files into 3}.
+            \item Merged legacy .NET web and MAUI mobile apps into \textbf{one React Native app} for iOS, Android, and web.
+            \item Migrated all production data to a normalized schema, using \textbf{MCP tooling} to derive and map it.
+            \item Replaced paper across 8 compliance categories with \textbf{10 PDF reports} auto-delivered to SharePoint.
+        \end{highlights}
+    \end{onecolentry}
 
-\vspace{0.08 cm}
-\begin{onecolentry}
-    \begin{highlights}
-        \item \textbf{Owned full product lifecycle} as sole developer, defining requirements with plant managers, managing the backlog, and shipping iterative releases under real operational deadlines.
-        \item Engineered a \textbf{schema-driven backend factory} to auto-generate CRUD controllers, routes, and validation from a single schema, reducing 100+ files to 3 and enabling zero-code endpoint creation.
-        \item Integrated \textbf{Microsoft Graph API + Azure AD} to automate SharePoint document delivery with token caching, retries, and exponential backoff, eliminating manual report distribution entirely.
-        \item Built \textbf{10 PDF reporting services} (JSReport, Handlebars, digital signatures, multi-photo support), replacing paper-based compliance workflows across 8 categories.
-        \item Integrated \textbf{LLM tooling (MCP)} for automated legacy data migration and schema derivation; deployed to on-prem infrastructure (\textbf{pm2/IIS}) and authored runbooks for successor handoff.
-        \item \textbf{Reduced processing time by 15\% (refactoring) and 75\% (digitization)} across reporting workflows.
-    \end{highlights}
-\end{onecolentry}
+    \vspace{0.246 cm}
 
-\section{Projects}
+    \role{\textbf{Technical Lead}, GTA Management System \stack{Next.js\sep TypeScript\sep Express\sep Prisma\sep MySQL}}{2025--2026}
+    \begin{onecolentry}
+        \begin{highlights}
+            \item Led a 4-person team on the TA-hiring platform now used by \textbf{100+ people} in Western ECE.
+            \item Designed and built the \textbf{matching algorithm}: scores every student-course pair, fills TA hours in waves.
+            \item Set the architecture and \textbf{rebuilt the backend in 3 days with AI agents}: 59 files, 100+ endpoints.
+            \item Locked down \textbf{14 API modules} with JWT auth, role and ownership checks, and Zod validation.
+            \item Wrote the \textbf{three-role test harness} that exercises every endpoint and gates each change.
+            \item Built \textbf{dry-run matching}: the committee previews and tunes weights without touching approved picks.
+            \item Built the \textbf{typed API client}, reusable CRUD components, and drag-and-drop matching board.
+            \item Deployed to \textbf{Railway and Netlify} and wrote the API, auth, and component docs the team built on.
+        \end{highlights}
+    \end{onecolentry}
 
-\begin{twocolentry}{
-    2025--2026
-}
-    \textbf{GTA Management System} --- Capstone ~|~
-    \href{https://control-alt-elites.netlify.app}{\mbox{\nolinkurl{control-alt-elites.netlify.app}}}
-\end{twocolentry}
-\vspace{0.08 cm}
-\begin{onecolentry}
-    \begin{highlights}
-        \item Built a \textbf{full-stack platform} replacing spreadsheet-based GTA hiring at Western Engineering, \textbf{deployed department-wide} across 100+ TAs, professors, and committee members.
-        \item Designed a \textbf{configurable matching algorithm} combining skill match, preferences, course history, and review data with adjustable weights, executing assignments across 4 priority waves.
-        \item Developed \textbf{78+ REST API endpoints} with role-based access control (student/professor/committee), Zod validation, and ownership enforcement; fully tested via automated bash suite.
-        \item Implemented a \textbf{dry-run assignment system} enabling preview, weight tuning, and manual overrides before any assignments are committed.
-    \end{highlights}
-\end{onecolentry}
+    \vspace{0.246 cm}
 
-\vspace{0.16 cm}
+    \role{\textbf{Freelance Developer}, Soi Ram \stack{Next.js\sep TypeScript\sep Tailwind\sep Toast POS}}{June 2026}
+    \begin{onecolentry}
+        \begin{highlights}
+            \item Designed, built, and launched \href{https://soiram.ca}{\textbf{soiram.ca}}, from brand identity to deployment.
+            \item Shipped design changes \textbf{live on client calls} with AI agents, building her vision in real time.
+            \item Integrated \textbf{Toast POS direct ordering} alongside UberEats and DoorDash to cut commission fees.
+            \item Built a \textbf{retro 80s brand}, data-driven menu, dynamic theming, and mobile-first SEO layout.
+        \end{highlights}
+    \end{onecolentry}
 
-\begin{twocolentry}{
-    2025--2026
-}
-    \textbf{Soi Ram} --- Freelance Restaurant Website ~|~
-    \href{https://soiram.netlify.app}{\mbox{\nolinkurl{soiram.netlify.app}}}
-\end{twocolentry}
-\vspace{0.08 cm}
-\begin{onecolentry}
-    \begin{highlights}
-        \item Delivered a \textbf{production-grade Next.js / TypeScript / Tailwind site} with dynamic theming, fluid \texttt{clamp()} typography, and data-driven menu rendering; managed the full client lifecycle from design to deployment.
-        \item Integrated \textbf{Toast POS ordering} alongside UberEats and DoorDash to enable commission-free direct orders with a unified receipt-style UI.
-        \item Designed a \textbf{retro 80s brand identity} with custom typography, mobile-first layout, and SEO optimization.
-    \end{highlights}
-\end{onecolentry}
+    \section{Projects}
 
-\vspace{0.16 cm}
-
-\begin{twocolentry}{
-    2025--2026
-}
-    \textbf{Fracture Protocol} --- 2-Person Unity Roguelike
-\end{twocolentry}
-\vspace{0.08 cm}
-\begin{onecolentry}
-    \begin{highlights}
-        \item Engineered a \textbf{roguelike arena shooter} in Unity/C\# with 77 scripts, 3 boss encounters, 12 elite enemy types, and a \textbf{32-modifier progression system} with 5 rarity tiers and diminishing returns on stacking.
-        \item Implemented \textbf{coroutine-driven boss AI} for 3 distinct encounters, running concurrent behaviors (fire patterns, drone phases, respawn timers) with phase transitions at 66\%/33\% HP and 0.8s visual telegraphing.
-        \item Architected a \textbf{modifier dispatch system} using string IDs queried at runtime, enabling dynamic effect composition across 32 modifiers without hardcoded branches.
-        \item Managed \textbf{Git version control} in a 2-person concurrent Unity workflow, coordinating development across scripts, scenes, and prefabs.
-    \end{highlights}
-\end{onecolentry}
+    \role{\textbf{Fracture Protocol}, 2-Person Roguelike \stack{Unity\sep C\#}}{April 2026}
+    \begin{onecolentry}
+        \begin{highlights}
+            \item Had a \textbf{full playable version in 2 days with AI agents}, writing two-thirds of the C\#.
+            \item Built all \textbf{3 boss fights} and the elite roster with coroutine AI and HP-based phase transitions.
+            \item Built \textbf{32 modifiers in 5 rarity tiers} with weighted drops, stack caps, and diminishing returns.
+            \item Traced a \textbf{web-build-only combat bug} to Unity stripping a shader, and shipped a build-safe fallback.
+        \end{highlights}
+    \end{onecolentry}
 
     \section{Skills}
 
     \begin{onecolentry}
-        \textbf{Languages \& Frameworks:} TypeScript/JavaScript, Java, C\#, Python, C++, SQL; React/React Native, Next.js, Node.js, Express.js, Swift/SwiftUI, Unity
+        \textbf{Languages \& Frameworks:} TypeScript/JavaScript, Java, C\#, Python, Bash, SQL; React, React Native/Expo, Next.js, Node.js, Express.js, Tailwind CSS, Unity; Linux
     \end{onecolentry}
-    \vspace{0.08 cm}
+    \vspace{0.098 cm}
     \begin{onecolentry}
-        \textbf{Tools \& Platforms:} MySQL, Firestore, PostgreSQL, MongoDB; Prisma ORM; Azure/SharePoint, IIS, Nginx, Docker, Git, CI/CD; Networking (IP, Routing \& Switching)
+        \textbf{Spoken Languages:} English (Native), French (Fluent)
     \end{onecolentry}
-    \vspace{0.08cm}
-    \begin{onecolentry}
-        \textbf{Spoken Languages:} English, French
-    \end{onecolentry}
+
+    \section{Education}
+
+    \begin{twocolentry}{June 2026}
+        \textbf{Western University}, London ON\\
+        Bachelor of Engineering, Software Engineering ~$|$~ \textbf{Dean's Honour List}
+    \end{twocolentry}
 \end{document}

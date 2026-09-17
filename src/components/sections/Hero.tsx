@@ -91,10 +91,10 @@ const Hero = () => {
             className="boot-reveal mt-4 mb-7 max-w-xl text-term-fg leading-relaxed font-sans text-base"
             style={revealStyle(T_SUMMARY)}
           >
-            Software engineering graduate from Western University who takes
-            production systems end to end, from requirements through
-            deployment. TypeScript, React/Next.js, and Node.js/Express — with
-            two systems in daily use today.
+            Software engineer who ships production systems end to end. I build
+            with AI agents: I set the architecture, schemas, and tests, and
+            they build against them. Two platforms I built are running in
+            production today.
           </p>
 
           <div className="boot-reveal" style={revealStyle(T_FINAL)}>
@@ -131,8 +131,8 @@ const Hero = () => {
       </div>
 
       <a
-        href="#tech-stack"
-        aria-label="Scroll to tech stack"
+        href="#about"
+        aria-label="Scroll to about"
         className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-finlayGreen text-xs"
       >
         <span className="blink">▼</span>
