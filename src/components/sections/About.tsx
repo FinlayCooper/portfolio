@@ -88,7 +88,7 @@ const About = () => {
                 I&apos;m a software engineering graduate from Western University
                 (Dean&apos;s Honour List) who takes production systems end to
                 end, from requirements through deployment. Two of the systems
-                I&apos;ve worked on are in daily use right now: a plant
+                I&apos;ve worked on are in production right now: a plant
                 compliance platform I built as the only engineer at BroadGrain
                 Commodities, and the TA-matching platform running in
                 Western&apos;s ECE department, where I was technical lead.

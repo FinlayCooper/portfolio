@@ -123,7 +123,6 @@ const Experience = () => {
         <TerminalHeading
         command="cat experience.md"
         title="Work Experience"
-        subtitle="Roles, most recent first."
         />
 
         <div className="relative">
@@ -138,7 +137,7 @@ const Experience = () => {
             transition={{ duration: 0.35 }}
             className="relative mb-8 pl-6 sm:pl-10"
             >
-            {/* `tree` connectors: a reverse-chronological list genuinely is
+            {/* `tree` connectors: a list of roles genuinely is
                 tree output, so this labels structure instead of decorating it. */}
             <span
             aria-hidden="true"

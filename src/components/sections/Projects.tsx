@@ -70,7 +70,6 @@ const Projects = () => {
         <TerminalHeading
           command="ls -l ~/projects"
           title="Featured Projects"
-          subtitle="Personal builds, outside of client and course work."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
