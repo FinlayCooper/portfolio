@@ -42,6 +42,24 @@ const experiences: ExperienceItem[] = [
     },
     {
         title: "Freelance Web Developer",
+        company: "Javier Navarrete",
+        location: "javiernavarrete.com",
+        period: "September 2026",
+        live: true,
+        description: [
+            "Designed, built, and launched javiernavarrete.com for the Oscar- and Grammy-nominated, Emmy-winning composer of Pan's Labyrinth",
+            "Built a custom cue player for 13 scores and albums: starting one stops the rest, and nothing downloads until play is pressed",
+            "Gave the site a cinematic feel: a once-per-visit title card, film grain, and a pinned painting the content frosts over as it scrolls, each switchable by a flag",
+            "Worked through rounds of client feedback from a shared doc, with every page driven by one typed content file shaped for a future admin UI",
+            "Moved the legacy Los Amantes opera site under the new one with redirects so old links keep working, and shipped a static export to the client's cPanel host"
+        ],
+        stack: "Next.js · TypeScript · Tailwind",
+        companyLogo: "/images/javier-navarrete-logo.svg",
+        companyUrl: "https://javiernavarrete.com",
+        screenshot: "/images/javier-navarrete.jpg"
+    },
+    {
+        title: "Freelance Web Developer",
         company: "Soi Ram",
         location: "soiram.ca",
         period: "June 2026",

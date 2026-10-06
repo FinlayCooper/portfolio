@@ -28,6 +28,14 @@ const projects: Project[] = [
   },
   {
     year: '2026',
+    title: 'Javier Navarrete',
+    builtWith: ['Next.js', 'TypeScript', 'Tailwind CSS', 'HTML5 Audio', 'Static Export'],
+    links: {
+      external: 'https://javiernavarrete.com'
+    }
+  },
+  {
+    year: '2026',
     title: 'Soi Ram',
     builtWith: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Toast POS', 'SEO'],
     links: {
