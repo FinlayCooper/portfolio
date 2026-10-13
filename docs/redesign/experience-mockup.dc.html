@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Experience, tmux layout</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0b0f0c}
+a{color:#c9d4cc}a:hover{color:#ffffff}
+button{font:inherit;color:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #e0b25c;outline-offset:-2px}
+@keyframes cursorblink{0%,55%{opacity:1}56%,100%{opacity:0.15}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: #0b0f0c; color: #c9d4cc; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 15px; line-height: 1.7">
+
+<nav aria-label="Sections" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 24px; padding: 4px 12px; background: #121915; font-size: 13px; line-height: 1.6; border-bottom: 1px solid #1d2822">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2px 4px">
+<span style="background: {{accent}}; color: #0b0f0c; font-weight: 700; padding: 2px 10px">[finlay]</span>
+<sc-for list="{{windows}}" as="w" hint-placeholder-count="5">
+<sc-if value="{{w.active}}" hint-placeholder-val="{{false}}">
+<a href="#experience" aria-current="page" style="background: {{accent}}; color: #0b0f0c; font-weight: 700; padding: 2px 10px; text-decoration: none">{{w.label}}*</a>
+</sc-if>
+<sc-if value="{{w.inactive}}" hint-placeholder-val="{{true}}">
+<a href="{{w.href}}" style="color: #8a998f; padding: 2px 10px; text-decoration: none">{{w.label}}</a>
+</sc-if>
+</sc-for>
+</div>
+<span style="color: #8a998f">"finlaycooper.ca" {{clock}}</span>
+</nav>
+
+<div style="flex: 1 1 auto; display: flex; flex-wrap: wrap; gap: 1px; background: {{borderColor}}">
+
+<sc-if value="{{showTree}}" hint-placeholder-val="{{true}}">
+<aside aria-label="Files" style="flex: 1 1 240px; min-width: 0; background: #0b0f0c; padding: 14px 8px; font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 0">
+<div style="color: #758578; padding: 0 10px 8px; font-size: 13px">~/experience</div>
+<div style="color: #c9d4cc; padding: 10px 10px"><span aria-hidden="true" style="color: {{accent}}">▾</span> experience/</div>
+<sc-for list="{{tree}}" as="f" hint-placeholder-count="4">
+<button type="button" onClick="{{f.pick}}" aria-pressed="{{f.selected}}" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 44px; padding: 2px 10px 2px 30px; border: 0; background: {{f.bg}}; color: {{f.color}}; text-align: left; cursor: pointer">
+<span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{f.name}}</span>
+<sc-if value="{{f.live}}" hint-placeholder-val="{{true}}">
+<span style="color: #e0b25c; font-size: 12px; white-space: nowrap">● live</span>
+</sc-if>
+</button>
+</sc-for>
+<button type="button" onClick="{{toggleArchive}}" aria-expanded="{{archiveOpen}}" style="display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; padding: 2px 10px; border: 0; background: transparent; color: #8a998f; text-align: left; cursor: pointer">
+<span aria-hidden="true" style="color: {{accent}}">{{archiveCaret}}</span> archive/
+</button>
+<sc-if value="{{archiveOpen}}" hint-placeholder-val="{{false}}">
+<sc-for list="{{archive}}" as="f" hint-placeholder-count="2">
+<button type="button" onClick="{{f.pick}}" aria-pressed="{{f.selected}}" style="display: flex; align-items: center; width: 100%; min-height: 44px; padding: 2px 10px 2px 30px; border: 0; background: {{f.bg}}; color: {{f.color}}; text-align: left; cursor: pointer">
+<span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{f.name}}</span>
+</button>
+</sc-for>
+</sc-if>
+</aside>
+</sc-if>
+
+<main id="experience" style="flex: 999 1 560px; min-width: 0; background: #0b0f0c; display: flex; flex-direction: column">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 16px; padding: 10px 24px 6px 22px; font-size: 13px; color: #758578">
+<span>experience <span aria-hidden="true">›</span> <span style="color: #c9d4cc">{{fileName}}</span></span>
+<span style="display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center">
+<sc-if value="{{hasLink}}" hint-placeholder-val="{{false}}">
+<a href="{{link}}" target="_blank" rel="noopener">{{linkText}} ↗</a>
+</sc-if>
+<sc-if value="{{hasNote}}" hint-placeholder-val="{{true}}">
+<span>{{note}}</span>
+</sc-if>
+<sc-if value="{{live}}" hint-placeholder-val="{{true}}">
+<span style="color: #e0b25c">● {{liveText}}</span>
+</sc-if>
+</span>
+</div>
+
+<div style="flex: 1 1 auto; padding: 6px 0 20px">
+<sc-for list="{{lines}}" as="ln" hint-placeholder-count="10">
+<div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); background: {{ln.rowBg}}">
+<span aria-hidden="true" style="text-align: right; padding-right: 18px; color: {{ln.numColor}}; font-size: 13px; line-height: 25.5px; user-select: none">{{ln.num}}</span>
+<div style="min-width: 0; max-width: 78ch; padding-right: 24px; line-height: 25.5px">
+<sc-if value="{{ln.isH1}}" hint-placeholder-val="{{false}}">
+<h2 style="margin: 0; font-size: 15px; line-height: 25.5px; font-weight: 700; color: {{accent}}"><span aria-hidden="true" style="opacity: 0.55">#</span> {{ln.text}}</h2>
+</sc-if>
+<sc-if value="{{ln.isMeta}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; color: #758578">{{ln.text}}</p>
+</sc-if>
+<sc-if value="{{ln.isStack}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 2px 0">
+<sc-for list="{{ln.stack}}" as="s" hint-placeholder-count="5">
+<code style="font-family: inherit; font-size: 13px; line-height: 20px; background: #16201a; color: #b9c7bd; padding: 1px 7px; border-radius: 3px">{{s.s}}</code>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ln.isBlank}}" hint-placeholder-val="{{false}}">
+<div aria-hidden="true">&#160;</div>
+</sc-if>
+<sc-if value="{{ln.isBullet}}" hint-placeholder-val="{{true}}">
+<p style="margin: 0; padding-left: 2ch; text-indent: -2ch"><span aria-hidden="true" style="color: {{accent}}">-</span> {{ln.text}}</p>
+</sc-if>
+<sc-if value="{{ln.isCursorBullet}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; padding-left: 2ch; text-indent: -2ch"><span aria-hidden="true" style="background: #c9d4cc; color: #0b0f0c; animation: cursorblink 1.2s steps(1) infinite">-</span> {{ln.text}}</p>
+</sc-if>
+<sc-if value="{{ln.isFold}}" hint-placeholder-val="{{false}}">
+<button type="button" onClick="{{ln.toggle}}" aria-expanded="false" style="display: flex; width: 100%; min-height: 25.5px; padding: 0; border: 0; background: #121915; color: #8a998f; text-align: left; white-space: nowrap; overflow: hidden; cursor: pointer">{{ln.text}}<span aria-hidden="true" style="flex: 1 1 auto; overflow: hidden; color: #3a473f">{{ln.dots}}</span></button>
+</sc-if>
+<sc-if value="{{ln.isFoldOpen}}" hint-placeholder-val="{{false}}">
+<button type="button" onClick="{{ln.toggle}}" aria-expanded="true" style="display: flex; gap: 8px; width: 100%; min-height: 25.5px; padding: 0; border: 0; background: transparent; color: #758578; text-align: left; cursor: pointer"><span aria-hidden="true" style="color: {{accent}}">▾</span> details <span style="color: #4a584f">(zc to close)</span></button>
+</sc-if>
+<sc-if value="{{ln.isDetail}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; padding-left: 4ch; text-indent: -2ch"><span aria-hidden="true" style="color: {{accent}}; opacity: 0.6">-</span> {{ln.text}}</p>
+</sc-if>
+</div>
+</div>
+</sc-for>
+<sc-for list="{{tildes}}" as="t" hint-placeholder-count="5">
+<div aria-hidden="true" style="padding-left: 22px; color: #2c3a31; line-height: 25.5px">~</div>
+</sc-for>
+</div>
+</main>
+
+</div>
+
+<footer style="display: flex; flex-wrap: wrap; justify-content: space-between; background: #121915; font-size: 13px; line-height: 26px; border-top: 1px solid #1d2822">
+<div style="display: flex; flex-wrap: wrap">
+<span style="background: {{accent}}; color: #0b0f0c; font-weight: 700; padding: 0 12px">NORMAL</span>
+<span style="background: #1a241e; color: #c9d4cc; padding: 0 12px">main</span>
+<span style="color: #c9d4cc; padding: 0 12px">experience/{{fileName}}</span>
+</div>
+<div style="display: flex; flex-wrap: wrap">
+<span style="color: #8a998f; padding: 0 12px">markdown</span>
+<span style="color: #8a998f; padding: 0 12px">utf-8</span>
+<span style="background: #1a241e; color: #c9d4cc; padding: 0 12px">All</span>
+<span style="background: {{accent}}; color: #0b0f0c; font-weight: 700; padding: 0 12px">{{cursorPos}}</span>
+</div>
+</footer>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 24px; padding: 4px 12px 8px; font-size: 13px; color: #758578">
+<span>press <kbd style="font-family: inherit; color: #c9d4cc; background: #16201a; padding: 0 6px; border-radius: 3px">?</kbd> for keybinds</span>
+<span>j/k move</span>
+<span>enter open</span>
+<span>za fold</span>
+<span>:resume</span>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#7fd49a","options":["#7fd49a","#a3d977","#5ccfb0","#39ff6a"],"section":"Theme"},"relativeNumbers":{"editor":"boolean","default":true,"section":"Editor"},"showTree":{"editor":"boolean","default":true,"section":"Editor"},"$preview":{"width":1440,"height":860}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { file: "broadgrain", fold: false, archive: false };
+  }
+
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 30000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  data() {
+    return {
+      "broadgrain": {
+        live: true,
+        liveText: "live at 3 plants",
+        note: "internal tool",
+        title: "Software Developer Intern",
+        meta: "BroadGrain Commodities · Toronto, ON · Summer 2025",
+        stack: ["TypeScript", "React Native", "Node.js", "Express", "MySQL", "Azure"],
+        bullets: [
+          "Sole engineer on a compliance platform now live at all 3 of BroadGrain's Canadian plants",
+          "Cut compliance reporting time 75%, plus another 15% from a later refactor",
+          "Designed a schema-driven backend factory: one declaration generates controllers, routes, and validation, replacing 100+ hand-written files with 3"
+        ],
+        details: [
+          "Scoped directly with plant managers at each site and shipped iterative releases into daily use",
+          "Merged a legacy .NET web app and a separate MAUI mobile app into one React Native app for iOS, Android, and web",
+          "Migrated all production data from the legacy system to a normalized schema",
+          "Replaced paper across 8 compliance categories with 10 PDF reports on a four-state approval workflow, auto-delivered to SharePoint via Microsoft Graph"
+        ]
+      },
+      "javier-navarrete": {
+        live: true,
+        liveText: "live",
+        link: "https://javiernavarrete.com",
+        linkText: "javiernavarrete.com",
+        title: "Freelance Web Developer",
+        meta: "Javier Navarrete · September 2026",
+        stack: ["Next.js", "TypeScript", "Tailwind"],
+        bullets: [
+          "Designed, built, and launched the site for the Oscar- and Grammy-nominated, Emmy-winning composer of Pan's Labyrinth",
+          "Built a custom cue player for 13 scores and albums: starting one stops the rest, and nothing downloads until play is pressed",
+          "Moved the legacy Los Amantes opera site under the new one, with redirects so old links keep working"
+        ],
+        details: [
+          "Cinematic layer: a once-per-visit title card, film grain, and a pinned painting the content frosts over, each behind a flag",
+          "Every page driven by one typed content file, shaped for a future admin UI",
+          "Worked through rounds of client feedback, then shipped a static export to the client's cPanel host"
+        ]
+      },
+      "soi-ram": {
+        live: true,
+        liveText: "live",
+        link: "https://soiram.ca",
+        linkText: "soiram.ca",
+        title: "Freelance Web Developer",
+        meta: "Soi Ram · June 2026",
+        stack: ["Next.js", "TypeScript", "Tailwind", "Toast POS"],
+        bullets: [
+          "Designed, built, and launched soiram.ca, from brand identity to deployment",
+          "Integrated Toast POS direct ordering alongside UberEats and DoorDash, so the restaurant keeps the commission on direct orders",
+          "Made design changes live on calls with the client instead of trading mockups"
+        ],
+        details: [
+          "Retro 80s brand, data-driven menu, and dynamic theming",
+          "Mobile-first, SEO-optimized layout"
+        ]
+      },
+      "gta-capstone": {
+        live: true,
+        liveText: "in use at Western",
+        title: "Technical Lead, GTA Management System",
+        meta: "Western University · London, ON · 2025-2026",
+        stack: ["Next.js", "TypeScript", "Express", "Prisma", "MySQL"],
+        bullets: [
+          "Led a 4-person capstone team replacing spreadsheet TA hiring in Western's ECE department, now used by 100+ TAs, professors, and committee members",
+          "Designed the matching algorithm: it scores every student-course pair on skill, preference, reviews, and history, then fills TA hours slot by slot in waves",
+          "Wrote the three-role integration harness that exercises all 107 endpoints as a student, professor, and committee member before anything merges"
+        ],
+        details: [
+          "JWT auth, role- and ownership-based access control, and Zod validation on every module",
+          "Dry-run matching, so the committee can tune weights without touching approved assignments",
+          "Typed API client, reusable dashboard and CRUD components, and a drag-and-drop matching board",
+          "Deployed the server to Railway and the client to Netlify, and wrote the API and authorization docs the team built on"
+        ]
+      },
+      "ymca": {
+        archived: true,
+        title: "Floater Counsellor",
+        meta: "YMCA of the GTA · Toronto, ON · Summer 2024",
+        stack: [],
+        bullets: [
+          "Mentored groups of 8-12 children across rotating teams",
+          "Spoke French with ESL campers"
+        ],
+        details: []
+      },
+      "three-lakes": {
+        archived: true,
+        title: "Detailing and Maintenance Specialist",
+        meta: "Three Lakes Concierge · Muskoka, ON · Summer 2023",
+        stack: [],
+        bullets: [
+          "Trained new employees on detailing techniques and procedures",
+          "Created and distributed promotional material to grow the client base"
+        ],
+        details: []
+      }
+    };
+  }
+
+  alpha(hex, a) {
+    const h = String(hex || "#7fd49a").replace("#", "");
+    const n = h.length === 3 ? h.split("").map((c) => c + c).join("") : h.slice(0, 6);
+    const r = parseInt(n.slice(0, 2), 16);
+    const g = parseInt(n.slice(2, 4), 16);
+    const b = parseInt(n.slice(4, 6), 16);
+    return "rgba(" + r + ", " + g + ", " + b + ", " + a + ")";
+  }
+
+  clock() {
+    const d = new Date();
+    const pad = (x) => String(x).padStart(2, "0");
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return pad(d.getHours()) + ":" + pad(d.getMinutes()) + " " + pad(d.getDate()) + "-" + months[d.getMonth()] + "-" + String(d.getFullYear()).slice(2);
+  }
+
+  renderVals() {
+    const accent = this.props.accent ?? "#7fd49a";
+    const rel = this.props.relativeNumbers ?? true;
+    const showTree = this.props.showTree ?? true;
+    const files = this.data();
+    const key = files[this.state.file] ? this.state.file : "broadgrain";
+    const f = files[key];
+    const toggleFold = () => this.setState({ fold: !this.state.fold });
+
+    const mkItem = (k) => {
+      const sel = k === key;
+      return {
+        name: k + ".md",
+        live: !!files[k].live,
+        selected: sel,
+        bg: sel ? "#17211b" : "transparent",
+        color: sel ? accent : (files[k].archived ? "#8a998f" : "#c9d4cc"),
+        pick: () => this.setState({ file: k, fold: false })
+      };
+    };
+
+    const raw = [];
+    raw.push({ kind: "h1", text: f.title });
+    raw.push({ kind: "meta", text: f.meta });
+    if (f.stack.length) raw.push({ kind: "stack", stack: f.stack.map((s) => ({ s: s })) });
+    raw.push({ kind: "blank" });
+    const cursor = raw.length;
+    f.bullets.forEach((b) => raw.push({ kind: "bullet", text: b }));
+    if (f.details.length) {
+      if (this.state.fold) {
+        raw.push({ kind: "foldopen", text: "details" });
+        f.details.forEach((d) => raw.push({ kind: "detail", text: d }));
+      } else {
+        raw.push({ kind: "fold", text: "+--  " + f.details.length + " lines: details " });
+      }
+    }
+    raw.push({ kind: "blank" });
+
+    const dots = "·".repeat(240);
+    const lines = raw.map((ln, i) => {
+      const isCur = i === cursor;
+      return Object.assign({}, ln, {
+        num: rel && !isCur ? String(Math.abs(i - cursor)) : String(i + 1),
+        rowBg: isCur ? "#131b16" : "transparent",
+        numColor: isCur ? "#e0b25c" : "#4a584f",
+        isH1: ln.kind === "h1",
+        isMeta: ln.kind === "meta",
+        isStack: ln.kind === "stack",
+        isBlank: ln.kind === "blank",
+        isBullet: ln.kind === "bullet" && !isCur,
+        isCursorBullet: ln.kind === "bullet" && isCur,
+        isFold: ln.kind === "fold",
+        isFoldOpen: ln.kind === "foldopen",
+        isDetail: ln.kind === "detail",
+        toggle: toggleFold,
+        dots: dots,
+        stack: ln.stack || []
+      });
+    });
+
+    const windows = [
+      { label: "0:home", href: "#" },
+      { label: "1:about", href: "#" },
+      { label: "2:experience", href: "#experience", active: true },
+      { label: "3:projects", href: "#" },
+      { label: "4:contact", href: "#" }
+    ].map((w) => Object.assign({}, w, { active: !!w.active, inactive: !w.active }));
+
+    return {
+      accent: accent,
+      borderColor: this.alpha(accent, 0.5),
+      showTree: showTree,
+      windows: windows,
+      clock: this.clock(),
+      tree: ["broadgrain", "javier-navarrete", "soi-ram", "gta-capstone"].map(mkItem),
+      archive: ["ymca", "three-lakes"].map(mkItem),
+      archiveOpen: this.state.archive,
+      archiveCaret: this.state.archive ? "▾" : "▸",
+      toggleArchive: () => this.setState({ archive: !this.state.archive }),
+      fileName: key + ".md",
+      hasLink: !!f.link,
+      link: f.link || "#",
+      linkText: f.linkText || "",
+      hasNote: !f.link && !!f.note,
+      note: f.note || "",
+      live: !!f.live,
+      liveText: f.liveText || "live",
+      lines: lines,
+      tildes: [{ t: 1 }, { t: 2 }, { t: 3 }, { t: 4 }, { t: 5 }, { t: 6 }],
+      cursorPos: (cursor + 1) + ":1"
+    };
+  }
+}
+</script>
+</body>
+</html>

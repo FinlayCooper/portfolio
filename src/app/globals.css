@@ -1,166 +1,106 @@
 @import "tailwindcss";
 
-/* ── Terminal palette ──────────────────────────────────────────────
-   Two real phosphor colours, not one accent on black.
-   Green is the voice; amber is rationed to live-status markers only. */
+/* ── Colorscheme ───────────────────────────────────────────────────
+   The real setup, read from live highlight groups: Windows Terminal
+   "Ottosson" on black, Neovim rose-pine with Normal bg cleared, and
+   tmux's default green status bar. Swapping colorschemes means editing
+   this block and nothing else. Spec: docs/redesign/REDESIGN.md */
 :root {
-  --background: #05070a;
-  --foreground: #d7e0d9;
+  --bg: #000000;         /* Ottosson bg (Normal bg=none) */
+  --fg: #bebebe;         /* Ottosson fg (Normal fg cleared) */
+  --fg-strong: #e0def4;  /* CursorLineNr, Folded */
+  --surface: #1f1d2e;    /* StatusLine, Folded, ColorColumn */
+  --cursorline: #26233a; /* CursorLine, TelescopeSelection */
+  --visual: #332d41;     /* Visual */
+  --border: #6e6a86;     /* WinSeparator */
+  --fg-muted: #908caa;   /* StatusLine fg */
+  --comment: #908caa;    /* Comment */
+  --line-nr: #6e6a86;    /* LineNr: 4.1:1, decorative only */
+  --heading: #c4a7e7;    /* @markup.heading.1 (iris) */
+  --list: #31748f;       /* @markup.list (pine): decorative only */
+  --code: #9ccfd8;       /* @markup.raw (foam) */
+  --warn: #f6c177;       /* WarningMsg (gold) */
+  --error: #eb6f92;      /* ErrorMsg (love) */
+  --tmux: #3fae3a;       /* Ottosson green: tmux status-style bg */
+  --tmux-fg: #000000;
+
+  --font-stack: var(--font-cascadia), "Cascadia Mono", ui-monospace, Consolas, monospace;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-fg-strong: var(--fg-strong);
+  --color-surface: var(--surface);
+  --color-cursorline: var(--cursorline);
+  --color-visual: var(--visual);
+  --color-border: var(--border);
+  --color-fg-muted: var(--fg-muted);
+  --color-comment: var(--comment);
+  --color-line-nr: var(--line-nr);
+  --color-heading: var(--heading);
+  --color-list: var(--list);
+  --color-code: var(--code);
+  --color-warn: var(--warn);
+  --color-error: var(--error);
+  --color-tmux: var(--tmux);
+  --color-tmux-fg: var(--tmux-fg);
 
-  --color-finlayGreen: #1ce44d;
-  --color-term-bg: #05070a;
-  --color-term-panel: #0a0f14;
-  --color-term-dim: #0f7a2b;
-  --color-term-amber: #ffb000;
-  --color-term-fg: #d7e0d9;
-  --color-term-muted: #6b7f72;
-
-  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
-  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  /* One face everywhere, as in the terminal. */
+  --font-mono: var(--font-stack);
+  --font-sans: var(--font-stack);
 }
 
-/* The ground colour lives on <html>, not <body>. The rain canvas is a body
-   child at z-index -10, and a negative-z child paints *behind* its parent's
-   background — an opaque body would bury it. */
 html {
-  background: var(--color-term-bg);
+  background: var(--bg);
 }
 
 body {
-  background: transparent;
-  color: var(--color-term-fg);
-  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-stack);
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 ::selection {
-  background: #1ce44d;
-  color: #05070a;
+  background: var(--visual);
+  color: var(--fg-strong);
 }
 
-/* Terminal-thin scrollbar, consistent with the rest of the chrome. */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #0f7a2b transparent;
-}
-*::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-*::-webkit-scrollbar-track {
-  background: #05070a;
-}
-*::-webkit-scrollbar-thumb {
-  background: #0f7a2b;
-  border: 2px solid #05070a;
-}
-*::-webkit-scrollbar-thumb:hover {
-  background: #1ce44d;
+  scrollbar-color: var(--border) transparent;
 }
 
-/* Keyboard focus must stay obvious against a dark, busy background. */
 :focus-visible {
-  outline: 2px solid #1ce44d;
+  outline: 2px solid var(--warn);
   outline-offset: 2px;
 }
 
-/* ── Terminal primitives ────────────────────────────────────────── */
-
-@keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+/* The start screen fits the window on desktop: about 90% of body size,
+   shrinking on short screens so the statusline never drops below the fold. */
+@media (min-width: 768px) {
+  .dashboard {
+    font-size: clamp(11px, calc((100dvh - 80px) / 46), 13.5px);
+  }
 }
 
-.blink {
-  animation: blink 1.06s step-end infinite;
+/* nvim's normal-mode block cursor; the terminal blinks it. */
+@keyframes cursor-blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
 }
 
-/* Solid block caret, the way a real TTY draws it. */
-.caret::after {
-  content: "";
-  display: inline-block;
-  width: 0.6em;
-  height: 1.05em;
-  margin-left: 0.15em;
-  background: #1ce44d;
-  vertical-align: text-bottom;
-  animation: blink 1.06s step-end infinite;
+.cursor-block {
+  animation: cursor-blink 1.2s steps(1) infinite;
 }
-
-/* Hairline rule in spent-phosphor green, used to close section headers. */
-.term-rule {
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    #0f7a2b 0%,
-    #0f7a2b 22%,
-    rgba(15, 122, 43, 0.15) 100%
-  );
-}
-
-/* ── Boot sequence ──────────────────────────────────────────────────
-   Driven by CSS, not by mounting state, so every word of the hero ships
-   in the server-rendered HTML and only the *reveal* is animated. No-JS
-   and crawlers get the finished session; reduced-motion lands there too,
-   because zero-duration + forwards jumps straight to the end state. */
-
-@keyframes bootReveal {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes bootType {
-  from { width: 0; }
-  to   { width: var(--type-ch); }
-}
-
-@keyframes bootCaret {
-  0%, 99% { border-right-color: #1ce44d; }
-  100%    { border-right-color: transparent; }
-}
-
-.boot-reveal {
-  opacity: 0;
-  animation: bootReveal 0.22s ease-out var(--boot-delay, 0s) forwards;
-}
-
-.boot-type {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  vertical-align: bottom;
-  width: 0;
-  border-right: 2px solid transparent;
-  animation:
-    bootType var(--type-dur) steps(var(--type-steps), end) var(--boot-delay, 0s) forwards,
-    bootCaret var(--type-dur) step-end var(--boot-delay, 0s) forwards;
-}
-
-/* A click, keypress, or scroll drops straight to the finished session —
-   a repeat visitor is never held behind the animation. */
-[data-boot='skip'] .boot-reveal,
-[data-boot='skip'] .boot-type {
-  animation-delay: 0s !important;
-  animation-duration: 0s !important;
-}
-
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .blink,
-  .caret::after {
-    animation: none;
-  }
   *,
   *::before,
   *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
+    animation: none !important;
     transition-duration: 0.001ms !important;
   }
 }
